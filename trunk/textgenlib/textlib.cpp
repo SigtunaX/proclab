@@ -5,10 +5,8 @@
 /////////////////////////////////////////////
 
 
-#include "stdafx.h"
+#include "main.h"
 #include <math.h>
-#define PI 3.1415926535897932384626433832795
-#define PIF 3.1415926535897932384626433832795f
 
 /////////////////////////////////////////////
 // Texture copy: text_o -> Txt_d
@@ -171,6 +169,7 @@ float Cellular(float x,float y,int width,int tam_cas, int seed, int cell_type)
 	int casillax=int(x/tam_cas);
 	int casillay=int(y/tam_cas);
 	int casilla=n_casillas*casillay+casillax;
+
 	for (int j=-1;j<2;j++)
 	{
 		for (int i=-1;i<2;i++)
@@ -184,11 +183,13 @@ float Cellular(float x,float y,int width,int tam_cas, int seed, int cell_type)
 				dist_aux=int(abs(int(x-xpunto))+abs(int(y-ypunto)));                       //Distancia Manhattan
 				break;
 			case 2:
-				dist_aux=int(MAX(abs(int(x-xpunto)),abs(int(y-ypunto))));                  //Distancia Cuadrada
+				dist_aux=int(max((int)fabs(x-xpunto),(int)fabs(y-ypunto)));                   //Distancia Cuadrada
 				break;
 			default:
 				dist_aux=sqrt((x-xpunto)*(x-xpunto)+(y-ypunto)*(y-ypunto));
+				break;
 			}
+
 			if (primero>dist_aux)
 			{
                 tercero=segundo;
@@ -210,7 +211,7 @@ float Cellular(float x,float y,int width,int tam_cas, int seed, int cell_type)
 			}
 		}
 	}
-	return (float)(256*2*primero/(segundo+tercero));
+	return (float)(255.0*2.0*primero/(segundo+tercero));
 }
 
 void Text_generate_celular (TEXTURE Txt, T_CELULAR celular, unsigned char *data)
@@ -221,9 +222,9 @@ void Text_generate_celular (TEXTURE Txt, T_CELULAR celular, unsigned char *data)
 	for (x=0; x<Txt.w; x++)
 		for (y=0; y<Txt.h; y++)
 		{
-			data [cnt++] = (int)(Cellular((float)x,(float)y,Txt.w,celular.c.R,celular.s.R,celular.type));
-			data [cnt++] = (int)(Cellular((float)x,(float)y,Txt.w,celular.c.G,celular.s.G,celular.type));
-			data [cnt++] = (int)(Cellular((float)x,(float)y,Txt.w,celular.c.B,celular.s.B,celular.type));
+			data [cnt++] = (unsigned char)(Cellular((float)x,(float)y,Txt.w,celular.c.R,celular.s.R,celular.type));
+			data [cnt++] = (unsigned char)(Cellular((float)x,(float)y,Txt.w,celular.c.G,celular.s.G,celular.type));
+			data [cnt++] = (unsigned char)(Cellular((float)x,(float)y,Txt.w,celular.c.B,celular.s.B,celular.type));
 		}
 }
 
@@ -374,14 +375,20 @@ void Text_generate_line (TEXTURE Txt, T_LINE line, unsigned char *data)
 	}
 }
 
-
+#ifdef __APPLE__
+	#import "apple_font.h"
+#endif
 /////////////////////////////////////////////
 // FONT TEXTURE
 /////////////////////////////////////////////
 void RenderFont(int x, int y, int size, char *str, char *fontname, UC_COLOR3 textcol,
 				unsigned char *cbuf, int w)
 {
-/*	int total=w*w;
+#ifdef __APPLE__
+	RenderFontApple (x, y, size, w, str, cbuf);
+#endif
+#ifdef WIN32
+	int total=w*w;
 	int *buf;
 
 	buf = (int*)malloc(sizeof(int)*total);
@@ -438,7 +445,7 @@ void RenderFont(int x, int y, int size, char *str, char *fontname, UC_COLOR3 tex
             *cbuf++=B;
     }
 	free (buf);
-*/
+#endif
 }
 
 void Text_generate_font (TEXTURE Txt, T_FONT font, unsigned char *data)
@@ -571,9 +578,9 @@ void applyfilter (char *filter, unsigned char filterW, unsigned char cfactor, un
 			} 
          
 			//truncate values smaller than zero and larger than 255 
-			data2[ x*(Txt.h*3) + (y*3)   ] = MIN(MAX(int(factor * r + bias), 0), 255); 
-			data2[ x*(Txt.h*3) + (y*3)+1 ] = MIN(MAX(int(factor * g + bias), 0), 255); 
-			data2[ x*(Txt.h*3) + (y*3)+2 ] = MIN(MAX(int(factor * b + bias), 0), 255);
+			data2[ x*(Txt.h*3) + (y*3)   ] = min(max(int(factor * r + bias), 0), 255); 
+			data2[ x*(Txt.h*3) + (y*3)+1 ] = min(max(int(factor * g + bias), 0), 255); 
+			data2[ x*(Txt.h*3) + (y*3)+2 ] = min(max(int(factor * b + bias), 0), 255);
 		}    
 
 	memcpy(data, data2, Txt.w*Txt.h*3);

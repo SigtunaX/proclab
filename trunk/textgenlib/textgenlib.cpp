@@ -5,16 +5,12 @@
 /////////////////////////////////////////////
 
 
-#include "stdafx.h"
+#include "main.h"
 #ifdef ENGINE
 //#include "textgen.h"
 //#include "textgenlib.h"
 #endif
 #include "textlib.h"
-
-#define PI 3.1415926535897932384626433832795
-#define PIF 3.1415926535897932384626433832795f
-
 
 CTextGenLib::CTextGenLib()
 {

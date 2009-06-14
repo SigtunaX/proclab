@@ -2,14 +2,13 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "stdafx.h"
+#include "main.h"
 #include "znt.h"
 #ifdef TEXTURE_EDITOR
-#include "../common/file.h"
+#include "../file.h"
 #endif
 
-// File version
-#define ZNT_VERSION		15
+
 
 //////////////////////////////////////////////////////////////////////
 #ifdef TEXTURE_ENGINE	// En el engine no hi ha destructor, ni path (filename)!
@@ -35,7 +34,7 @@ ZNT::ZNT(char file[], CTextGen &texture)
 
 ZNT::~ZNT()
 {
-	if (data!=NULL)	// Potser no fa ni falta.... ens estalviariem 1 o 2 ks en memÃšria, perÃš Ãˆs mes codi! :D
+	if (data!=NULL)	// Potser no fa ni falta.... ens estalviariem 1 o 2 ks en memòria, però és mes codi! :D
 		free(data);
 }
 
@@ -213,8 +212,7 @@ void ZNT::SaveEffCustom(int numtex)
 char ZNT::LoadFile()
 {
 	char msg = -1;
-	data_size=file2char (filename, data);
-	if (data_size==0)
+	if ((data_size=file2char (filename, data))==-1)
 		return msg;
 	else
 	{
@@ -257,15 +255,16 @@ char ZNT::LoadProcess()
 
 			switch (t->dtex[i].type)
 			{
-				case 0: LoadPlain(i);	break;
-				case 1: LoadNoise(i);	break;
-				case 2: LoadPerlin(i);	break;
-				case 3: LoadCelular(i);	break;
-				case 4: LoadPlasma(i);	break;
-				case 5: LoadBlob(i);	break;
-				case 6:	LoadLine(i);	break;
-				case 7: LoadText(i);	break;
-				case 8: LoadXor(i);		break;
+				case 0: LoadPlain(i);		break;
+				case 1: LoadNoise(i);		break;
+				case 2: LoadPerlin(i);		break;
+				case 3: LoadCelular(i);		break;
+				case 4: LoadPlasma(i);		break;
+				case 5: LoadBlob(i);		break;
+				case 6:	LoadLine(i);		break;
+				case 7: LoadText(i);		break;
+				case 8: LoadXor(i);			break;
+				case 150: LoadEffCustom(i);	break;
 			}
 
 		}
@@ -431,13 +430,12 @@ void ZNT::LoadLine(int numtex)
 
 void ZNT::LoadText(int numtex)
 {
-	int i=0;
 	t->dtex[numtex].font.p = *((T_FONT_PARAMS *) (data+data_size));
 	data_size += sizeof(T_FONT_PARAMS);
-
-	for (i=0; i<(t->dtex[numtex].font.p.numletters-1); i++)	// Posem el "-1" ja que el terminador no hi Ãˆs
+	int i;
+	for (i=0; i<(t->dtex[numtex].font.p.numletters-1); i++)	// Posem el "-1" ja que el terminador no hi és
 		t->dtex[numtex].font.text[i]	= data[data_size++];
-	t->dtex[numtex].font.text[i] = '\0';	// Afegim el temrinador a mâ€¡
+	t->dtex[numtex].font.text[i] = '\0';	// Afegim el temrinador a mà
 
 }
 

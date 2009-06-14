@@ -2,18 +2,16 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "stdafx.h"
+#include "main.h"
 #ifdef TEXTURE_ENGINE
 //#include "textgen.h"
 #endif
-#include "znt.h"
-#include "znl.h"
+#include "ZNT.h"
+#include "ZNL.h"
 #ifdef TEXTURE_LIBRARY_EDITOR
-#include "../common/file.h"
+#include "../file.h"
 #endif
 
-// File version
-#define ZNL_VERSION		14
 
 //////////////////////////////////////////////////////////////////////
 #ifdef TEXTURE_ENGINE	// En el engine no hi ha destructor, ni path (filename)!
@@ -56,7 +54,7 @@ void ZNL::GenDataArray()
 	}
 	data = (unsigned char*) malloc (sizeof (unsigned char) * 2048);
 	
-	data[data_size++] = 'L';					// DescripciÃ› arxiu
+	data[data_size++] = 'L';					// Descripció arxiu
 	data[data_size++] = ZNL_VERSION;			// Versio
 	data[data_size++] = tglib->dtexgensize;	// Cantitat de textures
 
