@@ -7,7 +7,7 @@
 //
 
 #import "c_structs.h"
-#import "../textgenlib/stdafx.h"
+#import "../textgenlib/main.h"
 
 @interface TGPlainControl : NSObject {
 	IBOutlet id *_parent;

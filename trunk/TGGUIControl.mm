@@ -35,7 +35,7 @@
 }
 
 
-// Add a txture to the texture stack
+// Add a texture to the texture stack
 - (void)AddText:(id)sender
 {
 	NSString *msg = [@"TODO: Add texture with operation: " stringByAppendingString:[CBOperation stringValue]];
@@ -60,7 +60,7 @@
 }
 
 // open texture file
-- (IBAction)openZNTfile:(char)filename
+- (IBAction)openZNTfile:(id)sender
 {
 	
 	// "Standard" open file panel

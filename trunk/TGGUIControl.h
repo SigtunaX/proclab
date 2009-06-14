@@ -9,7 +9,7 @@
 //#import <UIKit/UIKit.h
 #import "TG_Controls/TGPlainControl.h"
 #import "c_structs.h"
-#import "textgenlib/stdafx.h"
+#import "textgenlib/main.h"
 
 #define TMP_TEXTURES 1
 
