@@ -11,12 +11,12 @@
 
 
 
-class COneTextGen
+class COneTextGen  
 {
 public:
 	COneTextGen();
 	virtual			~COneTextGen() {};
-	COneTextGen		&operator= (const COneTextGen &ot); 
+	COneTextGen &operator= (const COneTextGen &ot); 
 	void			Init();
 	void			Regenerate (TEXTURE &t, unsigned char* &data);		// Regenerem la textura i ho posem a *data
 	void			ApplyEffect (TEXTURE &t, unsigned char* &data);
@@ -54,17 +54,17 @@ class CTextGen
 {
 public:
 	CTextGen();
-	virtual		~CTextGen();
-	CTextGen	&operator= (const CTextGen &ct); 
-	void		Init();
-	void		Free();
-	void		Regenerate ();			// Regenerem la textura i es posa a *data
+	virtual	~CTextGen();
+	CTextGen &operator= (const CTextGen &ct); 
+	void	Init();
+	void	Free();
+	void	Regenerate ();			// Regenerem la textura i es posa a *data
 #ifdef TEXTURE_EDITOR
 	void SaveRAW(char file[]);
 #endif
 	dCOneTextGen		dtex;		// Grup de textures que conformen la mescla
 	int					dtexsize;
-	TEXTURE				t;			// ContÃ© la info preparada per pujarla al OpenGL (tambe hi ha la data final)
+	TEXTURE				t;			// Conté la info preparada per pujarla al OpenGL (tambe hi ha la data final)
 private:
 	int operation (int oper, unsigned char val1, unsigned char val2);
 };

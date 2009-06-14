@@ -4,7 +4,7 @@
 //         TEXTURE GENERATION
 /////////////////////////////////////////////
 
-#include "stdafx.h"
+#include "main.h"
 #include "textlib.h"
 #include <math.h>
 
@@ -102,7 +102,7 @@ void CTextGen::Init ()
 
 // Regenera el contingut de la textura segons la info de textura
 // data: buffer final on genera la textura
-// dtex: llista amb la informaciÃ› necessaria per generar la textura
+// dtex: llista amb la informació necessaria per generar la textura
 // Regenerate the texture and store the results to the buffer given
 void CTextGen::Regenerate ()
 {
@@ -116,7 +116,7 @@ void CTextGen::Regenerate ()
 
 	for (j=0; j<dtexsize; j++)
 	{
-		if (dtex[j].type<100)	// Si no Ãˆs un efecte...
+		if (dtex[j].type<100)	// Si no és un efecte...
 		{
 			dtex[j].Regenerate(t, tmp_data);	// Regenerem la textura: guardem a "tmp_data" la textura generada
 			for (i=0; i<data_len; i++)
@@ -150,10 +150,10 @@ int CTextGen::operation (int oper, unsigned char val1, unsigned char val2)
 		value = int(255 * (val2 / 255.0 * val1 / 255.0));
 		break;
 	case 4:			//////////////////////////// MIN
-		value = MIN (val1, val2);
+		value = min(val1, val2);
 		break;
 	case 5:			//////////////////////////// MAX
-		value = MAX (val1, val2);
+		value = max(val1, val2);
 		break;
 	case 6:			//////////////////////////// AMPLITUDE: Depends: math.h
 		value = int(sqrt(int(val1 * val1 + val2 * val2)) / sqrt(2.0));;

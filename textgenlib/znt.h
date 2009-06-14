@@ -2,6 +2,8 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+// File version
+#define ZNT_VERSION		15
 
 class ZNT  
 {
@@ -67,7 +69,6 @@ private:
 	void LoadText(int numtex);
 	void LoadXor(int numtex);
 	void LoadEffCustom(int numtex);
-
 
 #ifdef TEXTURE_EDITOR
 protected:

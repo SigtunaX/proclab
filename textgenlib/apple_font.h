@@ -1,0 +1,1 @@
+void RenderFontApple (int x, int y, int size, int w, char *str, unsigned char *data);

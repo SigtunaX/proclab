@@ -5,7 +5,7 @@
 
 #define FONT_MAX 256
 
-//#ifdef TEXTURE_EDITOR	// En el engine no fa falta definirla, ja estˆ a un altre lloc
+//#ifdef TEXTURE_EDITOR	// En el engine no fa falta definirla, ja està a un altre lloc
 typedef struct tagTEXTURE
 {
 	unsigned int	tex_ID_OGL;		// Nombre de textura (a OpenGL)
