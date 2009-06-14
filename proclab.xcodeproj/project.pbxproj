@@ -11,6 +11,8 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		F11AA2350FE5ACDE0031FE4E /* apple_font.mm in Sources */ = {isa = PBXBuildFile; fileRef = F11AA2330FE5ACDE0031FE4E /* apple_font.mm */; };
+		F11AA2510FE5AD4E0031FE4E /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F11AA24F0FE5AD4E0031FE4E /* file.cpp */; };
 		F153CC3A0DBBE5FC002DBFAC /* TGPlainControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F153CC390DBBE5FC002DBFAC /* TGPlainControl.mm */; };
 		F163944B0E3A2E3100A14991 /* textgen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16394410E3A2E3100A14991 /* textgen.cpp */; };
 		F163944C0E3A2E3100A14991 /* textgenlib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16394430E3A2E3100A14991 /* textgenlib.cpp */; };
@@ -20,7 +22,6 @@
 		F17382450DBB930A005C96CA /* GLImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F17382440DBB930A005C96CA /* GLImage.m */; };
 		F176AE730DAC0A5A00AF7EA6 /* MainGUIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F176AE720DAC0A5A00AF7EA6 /* MainGUIControl.m */; };
 		F193310B0DBA56930013DD80 /* TGGUIControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F193310A0DBA56930013DD80 /* TGGUIControl.mm */; };
-		F19DD3210DFADBE100F032B9 /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F19DD3200DFADBE100F032B9 /* file.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,9 +34,13 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ProcLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProcLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F11AA2320FE5ACDE0031FE4E /* apple_font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = apple_font.h; sourceTree = "<group>"; };
+		F11AA2330FE5ACDE0031FE4E /* apple_font.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = apple_font.mm; sourceTree = "<group>"; };
+		F11AA2340FE5ACDE0031FE4E /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		F11AA24F0FE5AD4E0031FE4E /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
+		F11AA2500FE5AD4E0031FE4E /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
 		F153CC380DBBE5FC002DBFAC /* TGPlainControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGPlainControl.h; path = TG_Controls/TGPlainControl.h; sourceTree = "<group>"; };
 		F153CC390DBBE5FC002DBFAC /* TGPlainControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TGPlainControl.mm; path = TG_Controls/TGPlainControl.mm; sourceTree = "<group>"; };
-		F163943F0E3A2E3100A14991 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdafx.h; sourceTree = "<group>"; };
 		F16394400E3A2E3100A14991 /* structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = structs.h; sourceTree = "<group>"; };
 		F16394410E3A2E3100A14991 /* textgen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = textgen.cpp; sourceTree = "<group>"; };
 		F16394420E3A2E3100A14991 /* textgen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textgen.h; sourceTree = "<group>"; };
@@ -54,8 +59,6 @@
 		F19331090DBA56930013DD80 /* TGGUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGGUIControl.h; sourceTree = "<group>"; };
 		F193310A0DBA56930013DD80 /* TGGUIControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TGGUIControl.mm; sourceTree = "<group>"; };
 		F19DD29B0DFAD4F300F032B9 /* c_structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c_structs.h; sourceTree = "<group>"; };
-		F19DD31F0DFADB9400F032B9 /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
-		F19DD3200DFADBE100F032B9 /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
 		F1E5D51D0FE05FA4008A2F22 /* proclab_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = proclab_Prefix.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +83,8 @@
 				F19331090DBA56930013DD80 /* TGGUIControl.h */,
 				F193310A0DBA56930013DD80 /* TGGUIControl.mm */,
 				F19DD29B0DFAD4F300F032B9 /* c_structs.h */,
+				F11AA24F0FE5AD4E0031FE4E /* file.cpp */,
+				F11AA2500FE5AD4E0031FE4E /* file.h */,
 				F17382420DBB92F9005C96CA /* Model */,
 				F153CC2B0DBBE5A7002DBFAC /* TG_Controls */,
 			);
@@ -115,7 +120,6 @@
 		29B97314FDCFA39411CA2CEA /* GenLab */ = {
 			isa = PBXGroup;
 			children = (
-				F19DD31E0DFADB8D00F032B9 /* common */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -165,7 +169,9 @@
 		F163943E0E3A2E3100A14991 /* textgenlib */ = {
 			isa = PBXGroup;
 			children = (
-				F163943F0E3A2E3100A14991 /* stdafx.h */,
+				F11AA2320FE5ACDE0031FE4E /* apple_font.h */,
+				F11AA2330FE5ACDE0031FE4E /* apple_font.mm */,
+				F11AA2340FE5ACDE0031FE4E /* main.h */,
 				F16394400E3A2E3100A14991 /* structs.h */,
 				F16394410E3A2E3100A14991 /* textgen.cpp */,
 				F16394420E3A2E3100A14991 /* textgen.h */,
@@ -188,15 +194,6 @@
 				F17382440DBB930A005C96CA /* GLImage.m */,
 			);
 			name = Model;
-			sourceTree = "<group>";
-		};
-		F19DD31E0DFADB8D00F032B9 /* common */ = {
-			isa = PBXGroup;
-			children = (
-				F19DD31F0DFADB9400F032B9 /* file.h */,
-				F19DD3200DFADBE100F032B9 /* file.cpp */,
-			);
-			path = common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,12 +256,13 @@
 				F193310B0DBA56930013DD80 /* TGGUIControl.mm in Sources */,
 				F17382450DBB930A005C96CA /* GLImage.m in Sources */,
 				F153CC3A0DBBE5FC002DBFAC /* TGPlainControl.mm in Sources */,
-				F19DD3210DFADBE100F032B9 /* file.cpp in Sources */,
 				F163944B0E3A2E3100A14991 /* textgen.cpp in Sources */,
 				F163944C0E3A2E3100A14991 /* textgenlib.cpp in Sources */,
 				F163944D0E3A2E3100A14991 /* textlib.cpp in Sources */,
 				F163944E0E3A2E3100A14991 /* znl.cpp in Sources */,
 				F163944F0E3A2E3100A14991 /* znt.cpp in Sources */,
+				F11AA2350FE5ACDE0031FE4E /* apple_font.mm in Sources */,
+				F11AA2510FE5AD4E0031FE4E /* file.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

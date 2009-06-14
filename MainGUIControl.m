@@ -16,7 +16,7 @@
 
 	NSRect frame = [mainWindow frame];
 
-	// Tamany del frame del Generador de Textures
+	// Tamany minim del frame del Generador de Textures
 	int app_width = 900;
 	int app_height = 770;
 
