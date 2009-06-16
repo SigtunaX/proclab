@@ -43,11 +43,13 @@
 - (void) SaveToTGA:(id)sender;
 - (void) AddText:(id)sender;
 - (void) resetTemp:(id)sender;
+- (void) renderFinal:(id)sender;
 - (void) renderTemp:(id)sender;
 - (void) DeleteAllLayers:(id)sender;
 - (void) AddLayer:(id)sender;
 - (void) DeleteLayer:(id)sender;
 - (void) UpdateLayerList:(id)sender;
+- (void) LogFinalTexInfo;
 - (void) LogTmpTexInfo;
 - (IBAction) openZNTfile:(id)sender;
 

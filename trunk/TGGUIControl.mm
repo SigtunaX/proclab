@@ -60,7 +60,7 @@
 }
 
 // open texture file
-- (IBAction)openZNTfile:(id)sender
+- (IBAction) openZNTfile:(id)sender
 {
 	
 	// "Standard" open file panel
@@ -97,7 +97,7 @@
 			char sysctlPath [len+1];
 			strcpy(sysctlPath, temp);
 			
-			ZNT fd(sysctlPath, *tg_temptext[0]);
+			ZNT fd(sysctlPath, *tg_final);
 			char msg;
 			msg = fd.LoadFile();
 			
@@ -106,18 +106,68 @@
 			if (msg == -2)
 				NSLog(@"Err: openZNTfile --> Could not read the file. File is not valid.");
 			
-			[self renderTemp:nil];			
+			[self renderFinal:nil];			
 		}
 	}
 }
 
--(void)LogTmpTexInfo
+- (void) LogFinalTexInfo
+{
+	int i=0;
+	CTextGen *tmptex = tg_final;
+	NSLog(@" :: INFO Final text ::");
+	if (tmptex->dtex.size()!=tmptex->dtexsize)
+		NSLog(@"    ERROR: sizes are different! (dtex and dtexsize)");
+	NSLog(@"    Size dtexsize: %d", tmptex->dtexsize);
+	for (i=0;i<tmptex->dtexsize;i++)
+	{
+		NSLog(@"    Layer %d, type: %d", i, tmptex->dtex[i].type);
+	}
+	
+}
+
+- (void) LogTmpTexInfo
 {
 	for (int i=0; i<TMP_TEXTURES; i++)
 	{
 		CTextGen *tmptex = tg_temptext[i];
 		NSLog(@" :: INFO Temporary text #%d [Size: %d]",i, tmptex->dtexsize);
 		NSLog(@"    type: %d", tmptex->dtex[0].type);
+	}
+}
+
+// Regenerate and render final texture
+- (void) renderFinal:(id)sender
+{
+	CTextGen *tmptex;
+	
+	tmptex = tg_final;
+	[self UpdateLayerList:nil];
+	tmptex->Regenerate();
+	NSLog(@"Regenerating Final texture... done!!");
+	[self LogFinalTexInfo];
+	
+	// Convert buffer to NSBitmapImageRep
+	NSBitmapImageRep* bmp = [[NSBitmapImageRep alloc]	initWithBitmapDataPlanes:(unsigned char **)&tmptex->t.data
+																	pixelsWide: tmptex->t.w
+																	pixelsHigh: tmptex->t.h
+																 bitsPerSample: 8
+															   samplesPerPixel: tmptex->t.iformat
+																	  hasAlpha: NO
+																	  isPlanar: NO
+																colorSpaceName: NSCalibratedRGBColorSpace
+																   bytesPerRow: (tmptex->t.w*tmptex->t.iformat)
+																  bitsPerPixel: 24];
+	
+	// Store the NSBitmapImageRep in a NSImage structure
+	NSImage *img = [[NSImage alloc] initWithSize:[bmp size] ];
+	[img addRepresentation: bmp];
+	[bmp release];
+	
+	if (img)
+	{
+		[IVFinaltexture setImage:img];
+		[img release];
 	}
 }
 
@@ -161,7 +211,7 @@
 
 
 // Save Final Texture to TGA
-- (void)SaveToTGA:(id)sender
+- (void) SaveToTGA:(id)sender
 {
 	NSLog(@"TODO: SaveToTGA");
 }
@@ -176,7 +226,7 @@
 {
 }
 
-- (IBAction)showPlain:(id)sender
+- (IBAction) showPlain:(id)sender
 {
 	
 	if ([TGPlainCtrl isvisibleCtrl])
@@ -211,11 +261,14 @@
 	temp_t = &(tg_final->t);
 	
 	for (i=0; i<tg_final->dtex.size(); i++)	{
-		NSBitmapImageRep* imageRep;
+		NSImage* sourceImage;
 		COneTextGen *myTex = &tg_final->dtex[i];
-		myTex->Regenerate(*temp_t, temp_t->data);	// Regenerate each texture
+		if (myTex->type<100)
+			myTex->Regenerate(*temp_t, temp_t->data);	// Regenerate each texture
+		else
+			myTex->ApplyEffect(*temp_t, temp_t->data);	// Apply each effect
 		
-		
+		NSBitmapImageRep* imageRep;
 		imageRep=[[[NSBitmapImageRep alloc] initWithBitmapDataPlanes:(unsigned char **)&temp_t->data
 														  pixelsWide:temp_t->w
 														  pixelsHigh:temp_t->h
@@ -228,9 +281,8 @@
 														bitsPerPixel:(temp_t->iformat*8)] autorelease];
 		
 		
-		NSImage* sourceImage = [[[NSImage alloc] initWithSize:NSMakeSize(temp_t->w, temp_t->h)] autorelease];
+		sourceImage = [[[NSImage alloc] initWithSize:NSMakeSize(temp_t->w, temp_t->h)] autorelease];
 		[sourceImage addRepresentation:imageRep];
-		
 		if ([sourceImage isValid])
 		{
 			NSImage* thumbnail = [sourceImage imageByScalingProportionallyToSize:NSMakeSize(32,32)];
