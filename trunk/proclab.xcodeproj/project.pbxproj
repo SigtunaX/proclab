@@ -19,9 +19,9 @@
 		F163944D0E3A2E3100A14991 /* textlib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16394450E3A2E3100A14991 /* textlib.cpp */; };
 		F163944E0E3A2E3100A14991 /* znl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16394470E3A2E3100A14991 /* znl.cpp */; };
 		F163944F0E3A2E3100A14991 /* znt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16394490E3A2E3100A14991 /* znt.cpp */; };
-		F17382450DBB930A005C96CA /* GLImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F17382440DBB930A005C96CA /* GLImage.m */; };
 		F176AE730DAC0A5A00AF7EA6 /* MainGUIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F176AE720DAC0A5A00AF7EA6 /* MainGUIControl.m */; };
 		F193310B0DBA56930013DD80 /* TGGUIControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F193310A0DBA56930013DD80 /* TGGUIControl.mm */; };
+		F1F4B7CD0FF297AA00AE8E86 /* tableview.m in Sources */ = {isa = PBXBuildFile; fileRef = F1F4B7CC0FF297AA00AE8E86 /* tableview.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,14 +52,14 @@
 		F16394480E3A2E3100A14991 /* znl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = znl.h; sourceTree = "<group>"; };
 		F16394490E3A2E3100A14991 /* znt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = znt.cpp; sourceTree = "<group>"; };
 		F163944A0E3A2E3100A14991 /* znt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = znt.h; sourceTree = "<group>"; };
-		F17382430DBB930A005C96CA /* GLImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLImage.h; sourceTree = "<group>"; };
-		F17382440DBB930A005C96CA /* GLImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLImage.m; sourceTree = "<group>"; };
 		F176AE710DAC0A5A00AF7EA6 /* MainGUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainGUIControl.h; sourceTree = "<group>"; };
 		F176AE720DAC0A5A00AF7EA6 /* MainGUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainGUIControl.m; sourceTree = "<group>"; };
 		F19331090DBA56930013DD80 /* TGGUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGGUIControl.h; sourceTree = "<group>"; };
 		F193310A0DBA56930013DD80 /* TGGUIControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TGGUIControl.mm; sourceTree = "<group>"; };
 		F19DD29B0DFAD4F300F032B9 /* c_structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c_structs.h; sourceTree = "<group>"; };
 		F1E5D51D0FE05FA4008A2F22 /* proclab_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = proclab_Prefix.pch; sourceTree = "<group>"; };
+		F1F4B7CB0FF297AA00AE8E86 /* tableview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tableview.h; path = controls/tableview.h; sourceTree = "<group>"; };
+		F1F4B7CC0FF297AA00AE8E86 /* tableview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = tableview.m; path = controls/tableview.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +77,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F1F4B7C30FF2977400AE8E86 /* controls */,
 				F163943E0E3A2E3100A14991 /* textgenlib */,
 				F176AE710DAC0A5A00AF7EA6 /* MainGUIControl.h */,
 				F176AE720DAC0A5A00AF7EA6 /* MainGUIControl.m */,
@@ -85,7 +86,6 @@
 				F19DD29B0DFAD4F300F032B9 /* c_structs.h */,
 				F11AA24F0FE5AD4E0031FE4E /* file.cpp */,
 				F11AA2500FE5AD4E0031FE4E /* file.h */,
-				F17382420DBB92F9005C96CA /* Model */,
 				F153CC2B0DBBE5A7002DBFAC /* TG_Controls */,
 			);
 			name = Classes;
@@ -187,13 +187,13 @@
 			path = textgenlib;
 			sourceTree = "<group>";
 		};
-		F17382420DBB92F9005C96CA /* Model */ = {
+		F1F4B7C30FF2977400AE8E86 /* controls */ = {
 			isa = PBXGroup;
 			children = (
-				F17382430DBB930A005C96CA /* GLImage.h */,
-				F17382440DBB930A005C96CA /* GLImage.m */,
+				F1F4B7CB0FF297AA00AE8E86 /* tableview.h */,
+				F1F4B7CC0FF297AA00AE8E86 /* tableview.m */,
 			);
-			name = Model;
+			name = controls;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,7 +254,6 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				F176AE730DAC0A5A00AF7EA6 /* MainGUIControl.m in Sources */,
 				F193310B0DBA56930013DD80 /* TGGUIControl.mm in Sources */,
-				F17382450DBB930A005C96CA /* GLImage.m in Sources */,
 				F153CC3A0DBBE5FC002DBFAC /* TGPlainControl.mm in Sources */,
 				F163944B0E3A2E3100A14991 /* textgen.cpp in Sources */,
 				F163944C0E3A2E3100A14991 /* textgenlib.cpp in Sources */,
@@ -263,6 +262,7 @@
 				F163944F0E3A2E3100A14991 /* znt.cpp in Sources */,
 				F11AA2350FE5ACDE0031FE4E /* apple_font.mm in Sources */,
 				F11AA2510FE5AD4E0031FE4E /* file.cpp in Sources */,
+				F1F4B7CD0FF297AA00AE8E86 /* tableview.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
