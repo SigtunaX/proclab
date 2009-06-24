@@ -8,7 +8,7 @@
 
 #import "TGGUIControl.h"
 
-#import "GLImage.h"
+
 #include "znt.h"
 
 @implementation TGGUIControl
@@ -18,7 +18,7 @@
 	if (self = [super init])
 	{
 		NSLog (@"====== ProcLab :: Loading ======");
-		[self setLayerList:[NSArray array]];
+//		[self setLayerList:[NSArray array]];
 		[self init_prepareText];
 	}
 	return self;
@@ -26,7 +26,7 @@
 
 - (void)dealloc
 {
-	[self setLayerList:nil];
+//	[self setLayerList:nil];
 	[super dealloc];
 }
 
@@ -250,7 +250,42 @@
 // Update the layer list
 -(void)UpdateLayerList:(id)sender
 {
-	int i=0;
+	[layerlist deleteallLayers];
+	int i;
+	TEXTURE *temp_t;
+	temp_t = &(tg_final->t);
+	
+	for (i=0; i<tg_final->dtex.size(); i++)	{
+		NSImage* sourceImage;
+		COneTextGen *myTex = &tg_final->dtex[i];
+		if (myTex->type<100)
+			myTex->Regenerate(*temp_t, temp_t->data);	// Regenerate each texture
+		else
+			myTex->ApplyEffect(*temp_t, temp_t->data);	// Apply each effect
+		
+		NSBitmapImageRep* imageRep;
+		imageRep=[[[NSBitmapImageRep alloc] initWithBitmapDataPlanes:(unsigned char **)&temp_t->data
+														  pixelsWide:temp_t->w
+														  pixelsHigh:temp_t->h
+													   bitsPerSample:8
+													 samplesPerPixel:temp_t->iformat
+															hasAlpha:NO
+															isPlanar:NO
+													  colorSpaceName:NSCalibratedRGBColorSpace
+														 bytesPerRow:(temp_t->w*temp_t->iformat)
+														bitsPerPixel:(temp_t->iformat*8)] autorelease];
+		
+		
+		sourceImage = [[[NSImage alloc] initWithSize:NSMakeSize(temp_t->w, temp_t->h)] autorelease];
+		[sourceImage addRepresentation:imageRep];
+		if ([sourceImage isValid])
+		{
+			NSImage* thumbnail = [sourceImage imageByScalingProportionallyToSize:NSMakeSize(32,32)];
+			[layerlist addLayer:@"TRUE" image:thumbnail operation:0 properties:@"TEST layer\nOperation"];
+		}
+	}	
+	
+/*	int i=0;
 	// list of layers
     NSMutableArray* mylayerList = [self layerList];
 	
@@ -291,11 +326,6 @@
 			[spImage setTitle:[NSString stringWithFormat:@"TEST layer\nOperation: ADD %d", random()]];
 			[spImage setDefaultThumbnail:thumbnail];
 			//button
-			/* NSButton *btn = [[NSButton alloc] init];
-						[btn setButtonType:NSOnOffButton];
-						[btn setState:NSOnState];
-						[spImage setVisible:btn]; 
-			 */
 			
 			NSComboBoxCell* comboCell = [[NSComboBoxCell alloc] init];
 			[spImage setOperation:comboCell];
@@ -311,22 +341,7 @@
 
 			//[comboCell selec];
 			
-			/*
-			 NSComboBoxCell *comboCell;
-			 NSTableColumn *combocolumn = [[ofsbliste tableColumns]
-			 objectAtIndex:0];
-			 
-			 comboCell = [[NSComboBoxCell alloc] init];
-			 [combocolumn setDataCell:comboCell];
-			 [comboCell setControlSize:NSSmallControlSize];
-			 [comboCell setFont:[NSFont systemFontOfSize:[NSFont
-			 smallSystemFontSize]]];
-			 [comboCell setEditable:YES];
-			 [comboCell setCompletes:YES];
-			 [comboCell setAction:@selector(selectedItem:)];
-			 [comboCell setTarget:self];
-			 */
-			
+	
 			
 			[mylayerList addObject:spImage];
 			[spImage release];
@@ -335,15 +350,18 @@
 	[self performSelectorOnMainThread: @selector(setLayerList:)
 						   withObject: mylayerList
 						waitUntilDone: YES];
+*/
 }
 
 // Add the temporary texture to the final texture (at the end)
 -(void)AddLayer:(id)sender
 {
 	tg_final->dtex.insert(tg_final->dtex.end(), tg_temptext[0]->dtex[0]);
+	tg_final->dtexsize = tg_final->dtex.size();
 	int i = tg_final->dtex.size()-1; // ID de la textura que acabem d'afegir
 	tg_final->dtex[i].operation		=	0; // TODO : HARDCODE
-	[self UpdateLayerList:nil];
+
+	[self renderFinal:nil];
 }
 
 // Delete the selected layer from the final texture
@@ -355,7 +373,7 @@
 		NSLog (@"Deleting Layer number %i",s);
 		tg_final->dtex[s].Init();	// Alliberem memòria
 		tg_final->dtex.erase(tg_final->dtex.begin()+s);
-		[self UpdateLayerList:nil];
+		[self renderFinal:nil];
 	}
 }
 
@@ -363,7 +381,7 @@
 -(void)DeleteAllLayers:(id)sender
 {
 	tg_final->Init();
-	[self UpdateLayerList:nil];
+	[self renderFinal:nil];
 }
 
 
@@ -440,7 +458,7 @@
 
 #pragma mark -
 #pragma mark Accessors
-
+/*
 - (NSMutableArray*)layerList
 {
 	return _layerList;
@@ -455,7 +473,7 @@
 }
 
 
-
+*/
 @end
 
 

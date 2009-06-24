@@ -10,6 +10,7 @@
 #import "TG_Controls/TGPlainControl.h"
 #import "c_structs.h"
 #import "textgenlib/main.h"
+#import "controls/tableview.h"
 
 #define TMP_TEXTURES 1
 
@@ -21,6 +22,7 @@
 	IBOutlet NSImageView *IVTemptexture;
 	IBOutlet NSComboBox *CBOperation;
 	IBOutlet NSTableView *TVLayerList;
+	IBOutlet tableviewLYR*	layerlist;	/* Layer array list */
 	
 	/* Controladores de los paneles "hijos"*/
 	IBOutlet TGPlainControl *TGPlainCtrl;
@@ -33,8 +35,6 @@
 //	c_gfx	gfx_Finaltext;					// Final texture
 //	c_gfx	gfx_Temptext[TMP_TEXTURES];		// Temporary texture
 	
-	/* Layer array list */
-	NSMutableArray * _layerList;
 }
 - (void) hideAllPanels;
 - (IBAction) showCelular:(id)sender;
@@ -60,8 +60,8 @@
 #pragma mark Accessors
 
 // Llista de layers
-- (NSMutableArray*)layerList;
-- (void)setLayerList:(NSArray*)aValue;
+//- (NSMutableArray*)layerList;
+//- (void)setLayerList:(NSArray*)aValue;
 
 @end
 
