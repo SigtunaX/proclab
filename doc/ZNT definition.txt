@@ -1,0 +1,172 @@
+Descripción del archivo ZNT (Zona Neutra Texture)
+------------------------------------------------------------
+v. del documento:	1.2
+v. del formato ZNT:	15
+
+By Xphere, creador del formato ZNT
+Zona Neutra: http://scener.zonan.org
+
+Campos (ordenados por aparición)
+-------------------------------------
+
+Cabezera (4 bytes)
+------------------
+1 ubyte -Definicion de formato, ha de ser la letra Z
+1 ubyte -Versión del archivo. Del 0 al 255
+1 ubyte -Exponente en base 2 del alto de la textura
+1 ubyte -Exponente en base 2 del ancho de la textura
+	1 -> 2^1=2
+	2 -> 2^2=4
+	...
+	6 -> 2^6=64
+1 ubyte -Numero de texturas guardadas (de 0 a 255)
+
+Cuerpo (1 byte)
+------
+1 ubyte -Tipo de textura. Valores:
+	0- Color Plano
+	1- Tipo Noise
+	2- Tipo Perlin
+	3- Celular
+	4- Plasma
+	5- Blob
+	6- Linea
+	7- Texto
+	8- Xor
+	(...)
+	100 - Efecto B/W (blanco y negro)
+	101 - Efecto Rectangular a Polar
+	102 - Efecto Blur
+	103 - Efecto Motion Blur
+	104 - Efecto Edges 1
+	105 - Efecto Edges 2
+	106 - Efecto Sharpen 1
+	107 - Efecto Sharpen 2
+	108 - Efecto Sharpen 3
+	109 - Efecto Emboss 1
+	110 - Efecto Emboss 2
+	111 - Efecto Mean 1
+	112 - Efecto Mean 2
+
+
+Cuerpo de textura (2 bytes)
+-----------------
+1 ubyte -Nivel de Opacidad (0=Transparente, 255=opaco)
+1 ubyte -Operación de la textura [1 vez por cada textura]
+	0- Add
+	1- Substract
+	2- Average
+	3- Multiply
+	4- Minimum
+	5- Maximum
+	6- Amplitude
+	7- And
+	8- Or
+	9- Xor
+
+
+------------------------------------------------------
+
+Si la textura es de tipo 0: Color Plano (3 bytes)
+---------------------------------------
+1 ubyte - Valor R (de 0 a 255)
+1 ubyte - Valor G (de 0 a 255)
+1 ubyte - Valor B (de 0 a 255)
+
+Si la textura es de tipo 1: Noise (3 bytes)
+---------------------------------
+1 ubyte - Valor R (de 0 a max.alto)
+1 ubyte - Valor G (de 0 a max.alto)
+1 ubyte - Valor B (de 0 a max.alto)
+
+Si la textura es de tipo 2: Perlin (6 bytes)
+----------------------------------
+1 ubyte - Valor Octaves R (de 0 a 8)
+1 ubyte - Valor Octaves G (de 0 a 8)
+1 ubyte - Valor Octaves B (de 0 a 8)
+1 ubyte - Valor Seed R (de 0 a 12)
+1 ubyte - Valor Seed G (de 0 a 12)
+1 ubyte - Valor Seed B (de 0 a 12)
+
+Si la textura es de tipo 3: Celular (7 bytes)
+-----------------------------------
+1 ubyte - Tipo de Celular
+	0- Euclidea
+	1- Manhattan
+	2- Cuadrada
+1 ubyte - Valor R (de 1 a 255)
+1 ubyte - Valor G (de 1 a 255)
+1 ubyte - Valor B (de 1 a 255)
+1 ubyte - Valor Seed R (de 1 a 255)
+1 ubyte - Valor Seed G (de 1 a 255)
+1 ubyte - Valor Seed B (de 1 a 255)
+
+Si la textura es de tipo 4: Plasma (21 bytes)
+----------------------------------
+1 ushort - T1 = T3
+1 ushort - T2 = T4
+1 ushort - Tam 1
+1 ushort - Tam 2
+1 ushort - Tam 3
+1 ushort - Tam 4
+1 ushort - Seed
+1 ubyte - Zoom
+1 ubyte - Valor R (de 0 a 255)
+1 ubyte - Valor G (de 0 a 255)
+1 ubyte - Valor B (de 0 a 255)
+1 ubyte - Valor Seed R (de 1 a 255)
+1 ubyte - Valor Seed G (de 1 a 255)
+1 ubyte - Valor Seed B (de 1 a 255)
+
+Si la textura es de tipo 5: Blob (7 bytes)
+--------------------------------
+1 ubyte - Valor R (de 0 a 255)
+1 ubyte - Valor G (de 0 a 255)
+1 ubyte - Valor B (de 0 a 255)
+1 ubyte - BlobInv (0 o 1), Blob Invertido?
+1 ubyte - BlobMad (0 o 1), Blob Mad?
+1 ubyte - BlobZoom (0 a 255), Zoom del Blob
+1 ubyte - BlobMadValor (0 a 255), Valor de Mad
+
+Si la textura es de tipo 6: Linea (8 bytes)
+---------------------------------
+1 ubyte - Valor R1 (de 0 a 255)
+1 ubyte - Valor G1 (de 0 a 255)
+1 ubyte - Valor B1 (de 0 a 255)
+1 ubyte - Valor R2 (de 0 a 255)
+1 ubyte - Valor G2 (de 0 a 255)
+1 ubyte - Valor B2 (de 0 a 255)
+1 ubyte - Rot1 (0 o 1)
+1 ubyte - Rot2 (0 o 1)
+1 ubyte - N1 (0 a 64)
+1 ubyte - N2 (0 a 64)
+
+Si la textura es de tipo 7: Texto (8-263 bytes)
+---------------------------------
+1 ubyte - Valor R (de 0 a 255)
+1 ubyte - Valor G (de 0 a 255)
+1 ubyte - Valor B (de 0 a 255)
+1 ubyte - Posicion X
+1 ubyte - Posicion Y
+1 ubyte - Type (font type, style)
+1 ubyte - Font Size
+1 ubyte - (Longitud del texto+1)(de 0 a 255)
+X ubyte - Texto sin contar el terminados '\0', hay que añadir este caracter durante el proceso de lectura
+
+Si la textura es de tipo 8: Xor (3 bytes)
+-------------------------------
+1 ubyte - Valor R (de 0 a 255)
+1 ubyte - Valor G (de 0 a 255)
+1 ubyte - Valor B (de 0 a 255)
+
+
+Si el efecto es de tipo Efecto (100-200): B/W (0 bytes)
+---------------------------------------------
+No ocupa nada
+
+
+Si el efecto es de tipo Efecto (100-200): Custom 3x3 (11 bytes)
+---------------------------------------------
+9 bytes - Valor de la matriz del filtro 3x3 (de -127 a 127)
+1 ubyte - Valor del 'cfactor' (de 1 a 255)
+1 ubyte - Valor del 'bias' (de 0 a 255)

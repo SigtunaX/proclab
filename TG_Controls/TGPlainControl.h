@@ -10,9 +10,9 @@
 #import "../textgenlib/main.h"
 
 @interface TGPlainControl : NSObject {
-	IBOutlet id *_parent;
 	IBOutlet NSPanel *TGPlainPanel;
 	IBOutlet NSColorWell *TGPColor1;
+	IBOutlet id *_parent;
 @public
 	c_gfx	*gfx;
 	T_PLAIN t_data; // Texture data

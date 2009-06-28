@@ -1,4 +1,5 @@
 #import "tableview.h"
+#import "../TGGUIControl.h"
 
 /* for this example to work, the class must be set as:
  - data source for the table view
@@ -41,17 +42,14 @@
 	NSLog(@"Layer list count (records internal): %d", [records count]);
 }
 
--(void)addLayer:(NSString*)enabled
-		  image:(NSImage*)thumb
-	  operation:(int)oper_ind
-	 properties:(NSString*)props
+-(void)addLayer:(NSString*)enabled image:(NSImage*)thumb operation:(int)oper_ind properties:(NSString*)props
 {
-	NSMutableArray *oper_list = [NSMutableArray arrayWithObjects: @"add", @"substract", @"multiply", @"or", @"xor", @"handerpeich", @"gromenauer", nil];
+	NSMutableArray *oper_list = [NSMutableArray arrayWithObjects: @"add", @"substract", @"average", @"multiply",@"minimum",@"maximum",@"amplitude",@"and",@"or", @"xor", nil];
 	NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:4];
 	[dic setObject:[NSString stringWithString:enabled] forKey:@"visible"];
 	[dic setObject:[[NSImage alloc] initWithData:[thumb TIFFRepresentation]] forKey:@"thumb"];
 	[dic setObject:oper_list forKey:@"operationv"];
-	[dic setObject:[oper_list objectAtIndex:0] forKey:@"operation"];
+	[dic setObject:[oper_list objectAtIndex:oper_ind] forKey:@"operation"];
 	[dic setObject:[NSString stringWithString:props] forKey:@"properties"];
 	[records addObject:dic];
 	[TableView reloadData];
@@ -60,25 +58,6 @@
 
 -(void)awakeFromNib
 {
-/*	int i,j;
-	for(i = 0;i < 2;i++)
-	{
-		NSMutableArray *list = [NSMutableArray arrayWithCapacity:10];
-		for(j = 0;j < 10;j++)
-			[list addObject:[NSString stringWithFormat:@"line %d, data %d",i,j]];
-		NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithCapacity:4];
-		
-		[dic setObject:[NSString stringWithFormat:@"%d",i] forKey:@"visible"];
-		[dic setObject:[[[NSImage alloc] initWithContentsOfFile:@"/Users/xphere/Desktop/Imagen 1.png"] autorelease] forKey:@"thumb"];
-		[dic setObject:list forKey:@"operationv"];
-		[dic setObject:[list objectAtIndex:0] forKey:@"operation"];
-		[dic setObject:[NSString stringWithString:@"TEST TEXT"] forKey:@"properties"];
-		[records addObject:dic];
-	}
-	[TableView reloadData];
-
-	NSLog(@"Items %d", [records count]);
-*/
 }
 
 /* data source for the NSComboBoxCell
@@ -134,7 +113,11 @@
 	if(nil == value)
 		value = @"";
 	if([[tableColumn identifier] isEqual:@"operation"])
+	{
 		[[records objectAtIndex:index] setObject:value forKey:@"operation"];
+		NSComboBoxCell *cell = [tableView selectedCell];
+		[(TGGUIControl*)_parent UpdateOperationFromLayer:index AndOperation:[cell indexOfSelectedItem]];
+	}
 }
 
 -(void)add:(NSTableView*)tableView setObjectValue:(id)value forTableColumn:(NSTableColumn*)tableColumn row:(int)index

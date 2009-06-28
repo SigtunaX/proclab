@@ -8,6 +8,7 @@
 
 //#import <UIKit/UIKit.h
 #import "TG_Controls/TGPlainControl.h"
+#import "TG_Controls/TGCelularControl.h"
 #import "c_structs.h"
 #import "textgenlib/main.h"
 #import "controls/tableview.h"
@@ -26,7 +27,7 @@
 	
 	/* Controladores de los paneles "hijos"*/
 	IBOutlet TGPlainControl *TGPlainCtrl;
-	//IBOutlet TGCelularControl *TGCelularCtrl;
+	IBOutlet TGCelularControl *TGCelularCtrl;
 	//IBOutlet TGPlasmaControl *TGPlasmaCtrl;
 
 	/* Common-C structures */
@@ -40,6 +41,7 @@
 - (IBAction) showCelular:(id)sender;
 - (IBAction) showPlain:(id)sender;
 - (void) GetPlainData:(T_PLAIN)t_data;
+- (void)GetCelularData:(T_CELULAR)t_data;
 - (void) SaveToTGA:(id)sender;
 - (void) AddText:(id)sender;
 - (void) resetTemp:(id)sender;
@@ -52,6 +54,8 @@
 - (void) LogFinalTexInfo;
 - (void) LogTmpTexInfo;
 - (IBAction) openZNTfile:(id)sender;
+- (void) UpdateOperationFromLayer:(int)layer_num AndOperation:(int)operation;
+
 
 #pragma mark Utilities
 

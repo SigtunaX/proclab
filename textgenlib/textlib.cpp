@@ -165,6 +165,8 @@ float Cellular(float x,float y,int width,int tam_cas, int seed, int cell_type)
 	double primero=2*tam_cas, segundo=2*tam_cas,tercero=2*tam_cas,dist_aux;
 	int casilla_pto;
 	double xpunto, ypunto;
+	if (tam_cas==0)
+		tam_cas=1;
 	int n_casillas=int(width/tam_cas)+1;
 	int casillax=int(x/tam_cas);
 	int casillay=int(y/tam_cas);
