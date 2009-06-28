@@ -1,0 +1,204 @@
+Descripción del archivo ZNO (Zona Neutra Object)
+------------------------------------------------------------
+v. del documento:	0.2
+v. del formato ZNO:	02
+
+By Xphere, creador del formato ZNO
+Zona Neutra: http://scener.zonan.org
+
+
+Graphic file structure:
+-----------------------
+	+--------------+
+	| Cabecera     |
+	+--------------+
+	| Texture Lib  |	(optional)
+	|   [ZNL]      |
+	+--------------+
+	| +Effect 1    | EFFECTS
+	| |-Body       |
+	| |-Data       |
+	| |-+Property 1|
+	| | |-Body     |
+	| | |-Data     |
+	| |-+Property 2|
+	| | |-Body     |
+	| | |-Data     |
+	| |-+Property n|
+	|   |-Body     |
+	|   |-Data     |
+	|              |
+	| +Effect 2    |
+	| |-Body       |
+	| |-Data       |
+	| |-+Property 1|
+	| | |-Body     |
+	| | |-Data     |
+	| |-+Property n|
+	|   |-Body     |
+	|   |-Data     |
+	|              |
+	| +Effect n    |
+	| |-Body       |
+	| |-Data       |
+	| |-+Property 1|
+	| | |-Body     |
+	| | |-Data     |
+	| |-+Property 2|
+	| | |-Body     |
+	| | |-Data     |
+	| |-+Property n|
+	|   |-Body     |
+	|   |-Data     |
+	+--------------+
+	| +Layer 1     | LAYERS
+	| |-Body       |
+	| |-Data       |
+	|              |
+	| +Layer 2     |
+	| |-Body       |
+	| |-Data       |
+	|              |
+	| +Layer n     |
+	| |-Body       |
+	| |-Data       |
+	+--------------+
+
+Campos (ordenados por aparición)
+-------------------------------------
+
+====[ HEADER ] ====================================================================
+
+Cabezera (5 bytes)
+------------------
+1 uchar  - Definicion de formato, ha de ser la letra O
+1 uchar  - Versión del archivo. Del 0 al 255
+1 uchar  - Tiene una Librería de Texturas? (0=no, 1=si)
+1 uchar  - Numero de efectos aplicados al objeto base (max 255)
+1 uchar  - Número de capas (layers) aplicados al objeto (max 255)
+
+====[ TEXTURE LIBRARY (optional)] =================================================
+
+Text.Lib (X bytes)
+------------------
+1 ushort - Tamaño en bytes que ocupa la libreria de texturas
+X uchar - Aqui hay la libreria de texturas, es un campo opcional y está definido en la Cabezera
+	En caso que este campo no esté se ha de haber cargado previamente una libreria, ya que sino al
+	regenerar el objeto puede dar un error.
+
+====[ EFFECTS ] ===================================================================
+
+[ Effect BODY (2 bytes) ]
+-------------------------
+1 uchar - Tipo del efecto. Valores:
+			0- Base Sphere
+			1- Base Quad
+			2- Displace
+			3- Clone
+1 uchar - Cantidad de propiedades asociadas al efecto
+
+Effect: Base Sphere (10 bytes)
+------------------------------
+1 ushort - stepX, numero de pasos en X (resolución) [0-65535]
+1 ushort - stepY, numero de pasos en Y (resolución) [0-65535]
+1 uchar	 - n1, número mágico 1 [0-255]
+1 uchar  - n2, número mágico 2 [0-255]
+1 ushort - div_sin, [1-60000]
+1 ushort - div_cos, [1-60000]
+
+Effect: Base Quad (4 bytes)
+---------------------------
+1 uchar	 - sizeX, tamaño en X [0-255]
+1 uchar	 - sizeY, tamaño en Y [0-255]
+1 uchar	 - subX, subdivisiones en X [0-255]
+1 uchar	 - subY, subdivisiones en Y [0-255]
+
+Effect: Displace (3 bytes)
+--------------------------
+1 uchar  - Operació del displace (0=ADD, 1=SUB)
+1 uchar  - ID de la textura a aplicar
+1 uchar  - Afección del displace [0-255]
+
+Effect: Clone (0 bytes)
+-----------------------
+(clone last object)
+
+[ Effect Property BODY (1 byte) ]
+---------------------------------
+1 uchar - Tipo de la propiedad. Valores:
+			1- Normal Reclaculation
+			2- Texture Mapping
+
+Effect Property: Normal Reclaculation (0 bytes)
+-----------------------------------------------
+
+Effect Property: Texture Mapping (3 bytes)
+------------------------------------------
+1 uchar - Tipo de mapeado de textura:
+			10- Mapeado Esférico
+			11- Mapeado Lineal X
+			12- Mapeado Lineal Y
+			13- Mapeado Lineal Z
+1 uchar	- Offset de U [0-255]
+1 uchar	- Offset de V [0-255]
+
+
+====[ LAYERS ] ====================================================================
+
+[ Layer BODY (11 bytes) ]
+-------------------------
+1 uchar - Tipo de la capa. Valores:
+			0- Solid Face Normals
+			1- Solid Vertex Normals
+			2- Wireframe mode
+			3- Show points
+			4- Show normals
+			5- Textured
+			6- Textured + Environment
+			7- Outline
+1 uchar - R Color
+1 uchar - G Color
+1 uchar - B Color
+1 uchar - A Color (alpha)
+1 ushort - Blending Mode Source
+1 ushort - Blending Mode Destiny
+1 ushort - Cull Face Mode
+
+Layer DATA: Face Normals (0 bytes)
+----------------------------------
+
+Layer DATA: Vertex Normals (0 bytes)
+------------------------------------
+
+Layer DATA: Wireframe (1 byte)
+------------------------------
+1 uchar - Tamaño de la línea [0-255]
+
+Layer DATA: Points (1 byte)
+---------------------------
+1 uchar - Tamaño del punto [0-255]
+
+Layer DATA: Show Normals (0 bytes)
+----------------------------------
+
+Layer DATA: Textured (5 bytes)
+------------------------------
+1 uchar - ID de la textura
+1 uchar - Modo de texturizado
+1 uchar - Mapeado de la textura
+1 uchar - Offset U del mapeado
+1 uchar - Offset V del mapeado
+
+Layer DATA: Textured+Env (7 bytes)
+----------------------------------
+1 uchar - ID de la textura
+1 uchar - Modo de texturizado (Modulado, mezclado, añadido, reemplazado, ...)
+1 uchar - Mapeado de la textura (Esférico, linealX/Y/Z)
+1 uchar - Offset U del mapeado
+1 uchar - Offset V del mapeado
+1 uchar - ID de la textura de environment
+1 uchar - Modo de texturizado de environment (Modulado, mezclado, añadido, reemplazado, ...)
+
+Layer DATA: Outline (1 byte)
+----------------------------
+1 uchar - Tamaño del borde [0-255]
