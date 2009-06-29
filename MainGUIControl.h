@@ -8,6 +8,7 @@
 	IBOutlet NSWindow *mainWindow;
 	IBOutlet NSView *ViewContainer;
 	IBOutlet NSView *ViewTextureGen;
+	IBOutlet NSView *ViewTextureLib;
 }
 
 - (IBAction)showTextureGen:(id)sender;

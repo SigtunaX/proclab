@@ -9,6 +9,8 @@
 
 - (IBAction)showTextureGen:(id)sender
 {
+	[ViewTextureLib removeFromSuperview];
+
 	[ViewContainer addSubview:ViewTextureGen];
 	[ViewTextureGen setFrame:[ViewContainer bounds]];
 	[ViewContainer setNeedsDisplay: YES];
@@ -26,6 +28,27 @@
 	[mainWindow setFrame:frame display:YES animate:YES];
 }
 
+- (IBAction)showTextureLib:(id)sender
+{
+	[ViewTextureGen removeFromSuperview];
+	
+	[ViewContainer addSubview:ViewTextureLib];
+	[ViewTextureLib setFrame:[ViewContainer bounds]];
+	[ViewContainer setNeedsDisplay: YES];
+	[ViewTextureLib setNeedsDisplay: YES];
+	
+	NSRect frame = [mainWindow frame];
+	
+	// Tamany minim del frame del Generador de Libreries
+	int app_width = 900;
+	int app_height = 770;
+	
+	if (frame.size.width<app_width)		frame.size.width = app_width;
+	if (frame.size.height<app_height)	frame.size.height = app_height;
+	
+	[mainWindow setFrame:frame display:YES animate:YES];
+	
+}
 
 - (void) didAddSubview:(NSView *) view
 {
@@ -38,11 +61,6 @@
 	myFrame.size.height = (viewFrame.size.height * driveCount);
 	[ViewContainer setFrame: myFrame];
 	NSLog(@"view: %@, frame Texture: %@, frame Container: %@", view,NSStringFromRect([view frame]), NSStringFromRect([ViewContainer frame]));
-}
-
-- (IBAction)showTextureLib:(id)sender
-{
-	[ViewTextureGen removeFromSuperview];
 }
 
 @end

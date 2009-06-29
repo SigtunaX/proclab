@@ -7,6 +7,10 @@
 	IBOutlet NSTableView		*TableView;
 	IBOutlet id *_parent;
 }
+
+-(int)selectedRow;
+-(void)selectRow:(int)row;
+-(int)numberOfRows;
 -(void)addLayer:(NSString*)enabled image:(NSImage*)thumb operation:(int)oper_ind properties:(NSString*)props;
 -(void)deleteLayerAtPos: (int)pos;
 -(void)deleteallLayers;
