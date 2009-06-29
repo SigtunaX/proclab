@@ -14,6 +14,7 @@
 		F115DB570FF8292A00D2907C /* TGCelularControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F115DB550FF8292A00D2907C /* TGCelularControl.mm */; };
 		F11AA2350FE5ACDE0031FE4E /* apple_font.mm in Sources */ = {isa = PBXBuildFile; fileRef = F11AA2330FE5ACDE0031FE4E /* apple_font.mm */; };
 		F11AA2510FE5AD4E0031FE4E /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F11AA24F0FE5AD4E0031FE4E /* file.cpp */; };
+		F11D0B850FF918A4001CBBCD /* TGNoiseControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F11D0B840FF918A4001CBBCD /* TGNoiseControl.mm */; };
 		F153CC3A0DBBE5FC002DBFAC /* TGPlainControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F153CC390DBBE5FC002DBFAC /* TGPlainControl.mm */; };
 		F163944B0E3A2E3100A14991 /* textgen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16394410E3A2E3100A14991 /* textgen.cpp */; };
 		F163944C0E3A2E3100A14991 /* textgenlib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16394430E3A2E3100A14991 /* textgenlib.cpp */; };
@@ -42,6 +43,8 @@
 		F11AA2340FE5ACDE0031FE4E /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		F11AA24F0FE5AD4E0031FE4E /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
 		F11AA2500FE5AD4E0031FE4E /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
+		F11D0B830FF918A4001CBBCD /* TGNoiseControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGNoiseControl.h; path = TG_Controls/TGNoiseControl.h; sourceTree = "<group>"; };
+		F11D0B840FF918A4001CBBCD /* TGNoiseControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TGNoiseControl.mm; path = TG_Controls/TGNoiseControl.mm; sourceTree = "<group>"; };
 		F153CC380DBBE5FC002DBFAC /* TGPlainControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGPlainControl.h; path = TG_Controls/TGPlainControl.h; sourceTree = "<group>"; };
 		F153CC390DBBE5FC002DBFAC /* TGPlainControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TGPlainControl.mm; path = TG_Controls/TGPlainControl.mm; sourceTree = "<group>"; };
 		F16394400E3A2E3100A14991 /* structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = structs.h; sourceTree = "<group>"; };
@@ -165,6 +168,8 @@
 			children = (
 				F115DB550FF8292A00D2907C /* TGCelularControl.mm */,
 				F115DB560FF8292A00D2907C /* TGCelularControl.h */,
+				F11D0B840FF918A4001CBBCD /* TGNoiseControl.mm */,
+				F11D0B830FF918A4001CBBCD /* TGNoiseControl.h */,
 				F153CC390DBBE5FC002DBFAC /* TGPlainControl.mm */,
 				F153CC380DBBE5FC002DBFAC /* TGPlainControl.h */,
 			);
@@ -269,6 +274,7 @@
 				F11AA2510FE5AD4E0031FE4E /* file.cpp in Sources */,
 				F1F4B7CD0FF297AA00AE8E86 /* tableview.mm in Sources */,
 				F115DB570FF8292A00D2907C /* TGCelularControl.mm in Sources */,
+				F11D0B850FF918A4001CBBCD /* TGNoiseControl.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

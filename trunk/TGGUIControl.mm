@@ -18,7 +18,6 @@
 	if (self = [super init])
 	{
 		NSLog (@"====== ProcLab :: Loading ======");
-//		[self setLayerList:[NSArray array]];
 		[self init_prepareText];
 	}
 	return self;
@@ -26,22 +25,14 @@
 
 - (void)dealloc
 {
-//	[self setLayerList:nil];
 	[super dealloc];
 }
 
 - (void)awakeFromNib
 {
 	[CBOperation selectItemAtIndex:0];
+	[self renderFinal:nil];
 	[self renderTemp:nil];
-}
-
-
-// Add a texture to the texture stack
-- (void)AddText:(id)sender
-{
-	NSString *msg = [@"TODO: Add texture with operation: " stringByAppendingString:[CBOperation stringValue]];
-	NSLog([msg stringByAppendingString:@"Add texture number: "]);
 }
 
 // Reset all temporary textures
@@ -59,6 +50,20 @@
 		NSLog(@"Re-initializing temporary text #%d [Size: %d]... done!!",i, tmptex->dtex.size());
 	}
 	[self renderTemp:nil];
+}
+
+// Prepare texture data
+- (void)init_prepareText
+{
+	int i;
+	for (i=0; i<TMP_TEXTURES; i++)
+	{
+		tg_temptext[i] = new CTextGen();
+	}
+	[self resetTemp:nil];
+	tg_final = new CTextGen();
+	tg_final->Init();
+	NSLog(@"Init Final text done!!");
 }
 
 // open texture file
@@ -113,37 +118,13 @@
 	}
 }
 
-- (void) LogFinalTexInfo
+// Save Final Texture to TGA
+- (void) SaveToTGA:(id)sender
 {
-	int i=0;
-	CTextGen *tmptex = tg_final;
-	NSLog(@" :: INFO Final text ::");
-	if (tmptex->dtex.size()!=tmptex->dtexsize)
-		NSLog(@"    ERROR: sizes are different! (dtex and dtexsize)");
-	NSLog(@"    Size dtexsize: %d", tmptex->dtexsize);
-	for (i=0;i<tmptex->dtexsize;i++)
-	{
-		NSLog(@"    Layer %d, type: %d", i, tmptex->dtex[i].type);
-	}
-	
+	NSLog(@"TODO: SaveToTGA");
 }
 
-- (void) LogTmpTexInfo
-{
-	for (int i=0; i<TMP_TEXTURES; i++)
-	{
-		CTextGen *tmptex = tg_temptext[i];
-		NSLog(@" :: INFO Temporary text #%d [Size: %d]",i, tmptex->dtexsize);
-		NSLog(@"    type: %d", tmptex->dtex[0].type);
-	}
-}
-
-- (void) UpdateOperationFromLayer:(int)layer_num AndOperation:(int)operation
-{
-	tg_final->dtex[layer_num].operation = operation;
-	[self renderFinal:nil];
-}
-
+#pragma mark Render Texture
 // Regenerate and render final texture
 - (void) renderFinal:(id)sender
 {
@@ -217,62 +198,97 @@
 	}
 }
 
+#pragma mark Layer Management
 
-// Save Final Texture to TGA
-- (void) SaveToTGA:(id)sender
+// Add the temporary texture to the final texture (at the end)
+-(void)AddLayer:(id)sender
 {
-	NSLog(@"TODO: SaveToTGA");
+	tg_final->dtex.insert(tg_final->dtex.end(), tg_temptext[0]->dtex[0]);
+	tg_final->dtexsize = tg_final->dtex.size();
+	int i = tg_final->dtex.size()-1; // ID de la textura que acabem d'afegir
+	tg_final->dtex[i].operation		=	[CBOperation indexOfSelectedItem];
+	
+	[self renderFinal:nil];
 }
 
-- (void) hideAllPanels
+// Add the effect to the final texture (at the end)
+-(void)AddEffect:(int)type
 {
-//	[TGCelularPanel orderOut:nil];
-	[TGPlainCtrl hideCtrl];
-	[TGCelularCtrl hideCtrl];
-}
-
-- (IBAction) showCelular:(id)sender
-{
-	if ([TGCelularCtrl isvisibleCtrl])
-		[TGCelularCtrl hideCtrl];
-	else
+	if (type<100)
 	{
-		[self hideAllPanels];
-		[TGCelularCtrl showCtrl];
-		tg_temptext[0]->dtex[0].type=3;
-		[TGCelularCtrl redraw:nil];
+		NSLog(@"WARNING! Effect not recognized!");
+		return;
+	}
+	COneTextGen tg;
+	tg.type = type;
+	tg_final->dtex.insert(tg_final->dtex.end(), tg);
+	tg_final->dtexsize = tg_final->dtex.size();
+	int i = tg_final->dtex.size()-1; // ID de la textura que acabem d'afegir
+	tg_final->dtex[i].operation	= 0;
+	
+	[self renderFinal:nil];
+}
+
+- (void) AddEffect_bw:(id)sender		{[self AddEffect:100];}
+- (void) AddEffect_r2polar:(id)sender	{[self AddEffect:101];}
+- (void) AddEffect_blur:(id)sender		{[self AddEffect:102];}
+- (void) AddEffect_mblur:(id)sender		{[self AddEffect:103];}
+- (void) AddEffect_edges1:(id)sender	{[self AddEffect:104];}
+- (void) AddEffect_edges2:(id)sender	{[self AddEffect:105];}
+- (void) AddEffect_sharpen1:(id)sender	{[self AddEffect:106];}
+- (void) AddEffect_sharpen2:(id)sender	{[self AddEffect:107];}
+- (void) AddEffect_sharpen3:(id)sender	{[self AddEffect:108];}
+- (void) AddEffect_emboss1:(id)sender	{[self AddEffect:109];}
+- (void) AddEffect_emboss2:(id)sender	{[self AddEffect:110];}
+- (void) AddEffect_mean1:(id)sender		{[self AddEffect:111];}
+- (void) AddEffect_mean2:(id)sender		{[self AddEffect:112];}
+- (void) AddEffect_custom3x3:(id)sender
+{
+	// TODO
+}
+
+
+// Delete the selected layer from the final texture
+-(void)DeleteLayer:(id)sender
+{
+	int s = [layerlist selectedRow];
+	if (s>=0)
+	{
+		NSLog (@"Deleting Layer number %i",s);
+		tg_final->dtex[s].Init();
+		tg_final->dtex.erase(tg_final->dtex.begin()+s);
+		tg_final->dtexsize = tg_final->dtex.size();
+		[self renderFinal:nil];
 	}
 }
 
-- (IBAction) showPlain:(id)sender
+// Delete all layers from the final texture
+-(void)DeleteAllLayers:(id)sender
 {
-	if ([TGPlainCtrl isvisibleCtrl])
-		[TGPlainCtrl hideCtrl];
-	else
-	{
-		[self hideAllPanels];
-		[TGPlainCtrl showCtrl];
-		tg_temptext[0]->dtex[0].type=0;
-		[TGPlainCtrl redraw:nil];
+	NSAlert * askToContinue = [NSAlert alertWithMessageText:@"Are you sure that you want to delete all layers?"
+											  defaultButton:@"Yes"
+											alternateButton:@"No"
+												otherButton:nil
+								  informativeTextWithFormat:@" The Final Texture (your work of hours and hours!) will be lost!!!"];
+	if( [askToContinue runModal] == NSAlertDefaultReturn ) {
+		tg_final->Init();
+		[self renderFinal:nil];
 	}
+	
 }
 
-- (void)GetPlainData:(T_PLAIN)t_data
+- (void) UpdateOperationFromLayer:(int)layer_num AndOperation:(int)operation
 {
-	tg_temptext[0]->dtex[0].type=0;
-	tg_temptext[0]->dtex[0].plain = t_data;
+	tg_final->dtex[layer_num].operation = operation;
+	[self renderFinal:nil];
 }
-
-- (void)GetCelularData:(T_CELULAR)t_data
-{
-	tg_temptext[0]->dtex[0].type=3;
-	tg_temptext[0]->dtex[0].celular = t_data;
-}
-
 
 // Update the layer list
 -(void)UpdateLayerList:(id)sender
 {
+	int selected = [layerlist selectedRow];
+	if (selected<0)
+		selected = 0;
 	[layerlist deleteallLayers];
 	int i;
 	TEXTURE *temp_t;
@@ -308,80 +324,137 @@
 			[layerlist addLayer:@"TRUE" image:thumbnail operation:myTex->operation properties:props];
 		}
 	}
+	
+	
+	if (selected <= tg_final->dtex.size())
+		[layerlist selectRow:selected];
 }
 
-// Add the temporary texture to the final texture (at the end)
--(void)AddLayer:(id)sender
+-(void)LayerUp:(id)sender
 {
-	tg_final->dtex.insert(tg_final->dtex.end(), tg_temptext[0]->dtex[0]);
-	tg_final->dtexsize = tg_final->dtex.size();
-	int i = tg_final->dtex.size()-1; // ID de la textura que acabem d'afegir
-	tg_final->dtex[i].operation		=	[CBOperation indexOfSelectedItem]; // TODO : HARDCODE
-
-	[self renderFinal:nil];
-}
-
-// Delete the selected layer from the final texture
--(void)DeleteLayer:(id)sender
-{
-	int s = [TVLayerList selectedRow];
-	if (s>=0)
+	int selected = [layerlist selectedRow];
+	if ((selected > 0) && (selected < [layerlist numberOfRows]))
 	{
-		NSLog (@"Deleting Layer number %i",s);
-		tg_final->dtex[s].Init();	// Alliberem memòria
-		tg_final->dtex.erase(tg_final->dtex.begin()+s);
+		COneTextGen temp = tg_final->dtex[selected-1];
+		tg_final->dtex[selected-1] = tg_final->dtex[selected];
+		tg_final->dtex[selected] = temp;
+		[layerlist selectRow:(selected-1)];
 		[self renderFinal:nil];
 	}
 }
 
-// Delete all layers from the final texture
--(void)DeleteAllLayers:(id)sender
-{
-	tg_final->Init();
-	[self renderFinal:nil];
-}
-
-
-#pragma mark -
-#pragma mark Utilities
-
-// Prepare texture data
--(void)init_prepareText
-{
-	int i;
-	for (i=0; i<TMP_TEXTURES; i++)
+-(void)LayerDown:(id)sender
+{	
+	int selected = [layerlist selectedRow];
+	if ((selected >= 0) && (selected < ([layerlist numberOfRows]-1)))
 	{
-		tg_temptext[i] = new CTextGen();
+		COneTextGen temp = tg_final->dtex[selected+1];
+		tg_final->dtex[selected+1] = tg_final->dtex[selected];
+		tg_final->dtex[selected] = temp;
+		[layerlist selectRow:(selected+1)];
+		[self renderFinal:nil];
 	}
-	[self resetTemp:nil];
-	tg_final = new CTextGen();
-	tg_final->Init();
-	NSLog(@"Init Final text done!!");
 }
 
-#pragma mark -
-#pragma mark Accessors
-/*
-- (NSMutableArray*)layerList
+#pragma mark Panels Management
+
+- (void) hideAllPanels
 {
-	return _layerList;
+	//	[TGCelularPanel orderOut:nil];
+	[TGPlainCtrl hideCtrl];
+	[TGCelularCtrl hideCtrl];
 }
 
-- (void)setLayerList:(NSArray*)aValue
+
+- (IBAction) showPlain:(id)sender
 {
-	NSMutableArray* oldLayerList = _layerList;
-	_layerList = [aValue mutableCopy];
-	[oldLayerList release];
-//    [self setImportingImages:NO];
+	if ([TGPlainCtrl isvisibleCtrl])
+		[TGPlainCtrl hideCtrl];
+	else
+	{
+		[self hideAllPanels];
+		[TGPlainCtrl showCtrl];
+		[TGPlainCtrl redraw:nil];
+	}
+}
+
+- (void)GetPlainData:(T_PLAIN)t_data
+{
+	tg_temptext[0]->dtex[0].type=0;
+	tg_temptext[0]->dtex[0].plain = t_data;
+}
+
+- (IBAction) showNoise:(id)sender
+{
+	if ([TGNoiseCtrl isvisibleCtrl])
+		[TGNoiseCtrl hideCtrl];
+	else
+	{
+		[self hideAllPanels];
+		[TGNoiseCtrl showCtrl];
+		[TGNoiseCtrl redraw:nil];
+	}
+}
+
+- (void)GetNoiseData:(T_NOISE)t_data
+{
+	tg_temptext[0]->dtex[0].type=1;
+	tg_temptext[0]->dtex[0].noise = t_data;
 }
 
 
-*/
+- (IBAction) showCelular:(id)sender
+{
+	if ([TGCelularCtrl isvisibleCtrl])
+		[TGCelularCtrl hideCtrl];
+	else
+	{
+		[self hideAllPanels];
+		[TGCelularCtrl showCtrl];
+		[TGCelularCtrl redraw:nil];
+	}
+}
+
+- (void)GetCelularData:(T_CELULAR)t_data
+{
+	tg_temptext[0]->dtex[0].type=3;
+	tg_temptext[0]->dtex[0].celular = t_data;
+}
+
+#pragma mark Logs
+- (void) LogFinalTexInfo
+{
+	int i=0;
+	CTextGen *tmptex = tg_final;
+	NSLog(@" :: INFO Final text ::");
+	if (tmptex->dtex.size()!=tmptex->dtexsize)
+		NSLog(@"    ERROR: sizes are different! (dtex and dtexsize)");
+	NSLog(@"    Size dtexsize: %d", tmptex->dtexsize);
+	for (i=0;i<tmptex->dtexsize;i++)
+	{
+		NSLog(@"    Layer %d, type: %d", i, tmptex->dtex[i].type);
+	}
+	
+}
+
+- (void) LogTmpTexInfo
+{
+	for (int i=0; i<TMP_TEXTURES; i++)
+	{
+		CTextGen *tmptex = tg_temptext[i];
+		NSLog(@" :: INFO Temporary text #%d [Size: %d]",i, tmptex->dtexsize);
+		NSLog(@"    type: %d", tmptex->dtex[0].type);
+	}
+}
+
+
 @end
 
 
 
 
+#pragma mark -
+#pragma mark Accessors
 
 
 /////////////////////////////////////////////////////////////////

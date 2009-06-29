@@ -60,6 +60,21 @@
 {
 }
 
+-(int)selectedRow
+{
+	return [TableView selectedRow];
+}
+
+-(void)selectRow:(int)row
+{
+	[TableView selectRow:row byExtendingSelection:false];
+}
+
+-(int)numberOfRows
+{
+	return [TableView numberOfRows];
+}
+
 /* data source for the NSComboBoxCell
  it reads the data from the representedObject
  the cell is responsible to display and manage the list of options

@@ -8,6 +8,7 @@
 
 //#import <UIKit/UIKit.h
 #import "TG_Controls/TGPlainControl.h"
+#import "TG_Controls/TGNoiseControl.h"
 #import "TG_Controls/TGCelularControl.h"
 #import "c_structs.h"
 #import "textgenlib/main.h"
@@ -18,15 +19,14 @@
 @interface TGGUIControl : NSObject {
 	/* Controles de la ventana principal */
 	IBOutlet NSView *mainTGView;
-	IBOutlet NSPanel *TGCelularPanel;
 	IBOutlet NSImageView *IVFinaltexture;
 	IBOutlet NSImageView *IVTemptexture;
 	IBOutlet NSComboBox *CBOperation;
-	IBOutlet NSTableView *TVLayerList;
 	IBOutlet tableviewLYR*	layerlist;	/* Layer array list */
 	
 	/* Controladores de los paneles "hijos"*/
 	IBOutlet TGPlainControl *TGPlainCtrl;
+	IBOutlet TGNoiseControl *TGNoiseCtrl;
 	IBOutlet TGCelularControl *TGCelularCtrl;
 	//IBOutlet TGPlasmaControl *TGPlasmaCtrl;
 
@@ -38,23 +38,50 @@
 	
 }
 - (void) hideAllPanels;
-- (IBAction) showCelular:(id)sender;
+
 - (IBAction) showPlain:(id)sender;
 - (void) GetPlainData:(T_PLAIN)t_data;
+
+- (IBAction) showNoise:(id)sender;
+- (void) GetNoiseData:(T_NOISE)t_data;
+
+- (IBAction) showCelular:(id)sender;
 - (void)GetCelularData:(T_CELULAR)t_data;
+
 - (void) SaveToTGA:(id)sender;
-- (void) AddText:(id)sender;
+- (IBAction) openZNTfile:(id)sender;
+
 - (void) resetTemp:(id)sender;
 - (void) renderFinal:(id)sender;
 - (void) renderTemp:(id)sender;
+
 - (void) DeleteAllLayers:(id)sender;
 - (void) AddLayer:(id)sender;
+
+- (void) AddEffect:(int)type;
+- (void) AddEffect_bw:(id)sender;
+- (void) AddEffect_r2polar:(id)sender;
+- (void) AddEffect_blur:(id)sender;
+- (void) AddEffect_mblur:(id)sender;
+- (void) AddEffect_edges1:(id)sender;
+- (void) AddEffect_edges2:(id)sender;
+- (void) AddEffect_sharpen1:(id)sender;
+- (void) AddEffect_sharpen2:(id)sender;
+- (void) AddEffect_sharpen3:(id)sender;
+- (void) AddEffect_emboss1:(id)sender;
+- (void) AddEffect_emboss2:(id)sender;
+- (void) AddEffect_mean1:(id)sender;
+- (void) AddEffect_mean2:(id)sender;
+- (void) AddEffect_custom3x3:(id)sender;
+
 - (void) DeleteLayer:(id)sender;
 - (void) UpdateLayerList:(id)sender;
+- (void) LayerUp:(id)sender;
+- (void) LayerDown:(id)sender;
+- (void) UpdateOperationFromLayer:(int)layer_num AndOperation:(int)operation;
+
 - (void) LogFinalTexInfo;
 - (void) LogTmpTexInfo;
-- (IBAction) openZNTfile:(id)sender;
-- (void) UpdateOperationFromLayer:(int)layer_num AndOperation:(int)operation;
 
 
 #pragma mark Utilities
