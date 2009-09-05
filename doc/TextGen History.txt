@@ -1,0 +1,28 @@
+Texture Generator - Version History
+-----------------------------------
+
+0.96	- Added ZNT version in 'About' screen
+	- Bugfixing: Fixed crashes in 'Release version': Celular-Square texture crash
+
+0.95	- New ZNT format (v.15)
+	- Added filters using Lode's Computer tutorial (http://student.kuleuven.be/~m0216922/CG/)
+	- Added new operations
+
+0.94	- Version never released
+	- Toolbar buttons now are accessible from everywhere
+	- New ZNT format (v.12)
+	- Added XOR texture
+	- Added TEXT texture
+	- Added Effects
+	- Modified and expanded line algorithm
+	- Modified core engine
+	- Optimitzed code speed and size: removed plasma tables, ...
+	- Some bug-hunting
+	- Converted some code to STL
+	- Minor code-cleaning: deleted mapes_units, adapted variable names, ...
+	- Exported all functions to a separate library files (structs.h, textlib.cpp, textlib.h)
+
+0.93	- New ZNT format (v.11)
+	- NOISE reduced 3 bytes (form 6 to 3)
+
+0.92	- Many things done :D

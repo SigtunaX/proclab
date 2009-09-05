@@ -182,10 +182,10 @@ float Cellular(float x,float y,int width,int tam_cas, int seed, int cell_type)
 			switch(cell_type)
 			{
 			case 1:
-				dist_aux=int(abs(int(x-xpunto))+abs(int(y-ypunto)));                       //Distancia Manhattan
+				dist_aux=int(abs(int(x-xpunto))+abs(int(y-ypunto)));		//Distancia Manhattan
 				break;
 			case 2:
-				dist_aux=int(max((int)fabs(x-xpunto),(int)fabs(y-ypunto)));                   //Distancia Cuadrada
+				dist_aux=int(max((int)fabs(x-xpunto),(int)fabs(y-ypunto)));	//Distancia Cuadrada
 				break;
 			default:
 				dist_aux=sqrt((x-xpunto)*(x-xpunto)+(y-ypunto)*(y-ypunto));
@@ -285,7 +285,6 @@ void Text_generate_plasma (TEXTURE Txt, T_PLASMA plasma, unsigned char *data)
 		}
 		plasma.posX = (plasma.posX + 1) % Txt.h;
 		plasma.posY = (plasma.posY + 2) % Txt.h;
-		
 	}
 	free (tableX);
 	free (tableY);
@@ -519,7 +518,92 @@ void Text_effect_bw (TEXTURE Txt, unsigned char *data)
 /////////////////////////////////////////////
 void Text_effect_rect2polar (TEXTURE Txt, unsigned char *data)
 {
+	
+	// COLORIZE
+	// GRADIENT BLUR	
 	int x,y;
+	int r,g,b;
+	int sr,sg,sb;
+	int er,eg,eb;
+	unsigned char *data2;
+
+	sr = 40;
+	sg = 20;
+	sb = 10;
+	er = 10;
+	eg = 205;
+	eb = 200;
+	data2 = (unsigned char*) malloc(Txt.w*Txt.h*3);
+	
+	for(x=0; x<Txt.w; x++)
+	{
+		for(y=0; y<Txt.h; y++)
+		{
+			r = data[ (x)*(Txt.h*3) + ((y)*3)  ];
+			g = data[ (x)*(Txt.h*3) + ((y)*3)+1];
+			b = data[ (x)*(Txt.h*3) + ((y)*3)+2];
+			float lum = ((r+g+b)/3.0f)/255.0f;
+			r = (sr + (er - sr)*lum);
+			g = (sg + (eg - sg)*lum);
+			b = (sb + (eb - sb)*lum);
+			data2[ x*(Txt.h*3) + (y*3)   ] = r;
+			data2[ x*(Txt.h*3) + (y*3)+1 ] = g;
+			data2[ x*(Txt.h*3) + (y*3)+2 ] = b;
+		}
+	}
+	
+	memcpy(data, data2, Txt.w*Txt.h*3);
+	
+	free (data2);
+/*
+	// GRADIENT BLUR	
+	int x,y;
+	float dx, dy;
+	float px, py;
+	int r,g,b;
+	int val;
+	unsigned char *data2;
+	int steps = 50;
+	int n;
+	data2 = (unsigned char*) malloc(Txt.w*Txt.h*3);
+	
+	for(x=0; x<Txt.w; x++)
+	{
+		for(y=0; y<Txt.h; y++)
+		{
+			r=g=b=0;
+			val = data[ x*(Txt.h*3) + (y*3)   ];
+			dx = sinf(2.0f*PIF*val/256.0f);
+			dy = cosf(2.0f*PIF*val/256.0f);
+			px = x;
+			py = y;
+			for (n=0; n<steps;n++)
+			{
+				if (px<0) px=0;
+				if (py<0) py=0;
+				if (px>=Txt.w) px=Txt.w-1;
+				if (py>=Txt.h) py=Txt.h-1;
+				r += data[ ((int)px)*(Txt.h*3) + (((int)py)*3)  ];
+				g += data[ ((int)px)*(Txt.h*3) + (((int)py)*3)+1];
+				b += data[ ((int)px)*(Txt.h*3) + (((int)py)*3)+2];
+				px +=dx;
+				py +=dy;
+			}
+			r = r/steps;
+			g = g/steps;
+			b = b/steps;
+
+			data2[ x*(Txt.h*3) + (y*3)   ] = r;
+			data2[ x*(Txt.h*3) + (y*3)+1 ] = g;
+			data2[ x*(Txt.h*3) + (y*3)+2 ] = b;
+		}
+	}
+	
+	memcpy(data, data2, Txt.w*Txt.h*3);
+	
+	free (data2);
+*/	
+	/*	int x,y;
 	int dx, dy;
 	int newX,newY;
 	unsigned char *data2;
@@ -546,6 +630,7 @@ void Text_effect_rect2polar (TEXTURE Txt, unsigned char *data)
 	memcpy(data, data2, Txt.w*Txt.h*3);
 
 	free (data2);
+ */
 }
 
 

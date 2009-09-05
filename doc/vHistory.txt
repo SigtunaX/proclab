@@ -1,0 +1,55 @@
+Object Generator - Version History
+-----------------------------------
+
+0.71	- Added versioning in about dialog box
+	- Minor bugfixing: Resizing window screen, etc.
+	- Support to ZNT v.15 (with texture filters)
+
+0.63	- ZNL - Texture Library support
+	- ZNO v.02 implmented, not backwards compatible
+	- Support to ZNT v.14 (with texture filters)
+	- Rebuild almost 99% of code: core engine rebuilt with classes (C++).
+	- Added Lighting dialog
+	- Added a frame rendering time counter
+	- Added a Texture Viewer dialog
+	- Added a Layer Properties dialog (double click on layer)
+	- Added a Mesh Properties dialog (depending on type of mesh)
+	- Added "Clone Last Mesh" effect
+	- Solved problem saving screenshots (finally!)
+	- Solved some memory leaks
+	- Code cleaned (deleted deprecated methods)
+
+0.5.1	- Bugfixing: 0000534
+	- Solved problem saving some screenshots
+
+0.5	- Created ZNO format, with saving and reading capabilities: full support (textures, layers and effects)
+	- Support to ZNO v.01
+	- Implemented Layer stack (using also STL libraries)
+	- Added material capabilities with blending between layers
+	- OpenGL rendering engine rewritten in order to give suport to layers
+	- ZNT loading engine rewritten
+	- Detected (and corrected :P) some memory Leaks
+	- Improved performance
+
+0.4	- This version was never released
+	- New pane with morphing capabilities!
+	- Real Effect Stack introduced (using STL libraries)
+	- Vertex shader editor introduced
+	- Reduced OpenGL View to 1 viewport (usability)
+	- Normal recalculation / initialisation Effects added
+	- Screenshot function enabled ('screens' folder must be created!!!) (but still a little buggy)
+
+0.3	- New mapping equations (SPHERE, LINEARX, LINEARY, LINEARZ)
+	- Now we can ADD - SUB displaced meshes
+
+0.2	- Compatible with new ZNT format (v.11)
+	- Displace function avaliable
+	- Stack initialised
+
+0.1	- Workspace created
+	- 4 Viewports, different rendering modes (solid, wire, points, face, smooth)
+	- Can create Spheres
+	- Can apply texture (compatible with ZNT v.10)
+	- Can apply environment texture (using multitexture extension)
+
+0.0	- In a dialog
