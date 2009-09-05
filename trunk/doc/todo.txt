@@ -1,0 +1,26 @@
+Object Generator - TODO
+-----------------------
+
+
+- Implementar un botó de PLAY per poder veure l'animació de la generació d'algun objecte
+- Pensar algun sistema per sincronitzar les animacions dels objectes amb els punts de syncro de les intros
+- Aplicar la tècnica de subdivisió de malla de Catmull-Clark (smooth mesh)
+
+
+X Arreglar lectura del ZNO
+X Agrupar-ho tot en una classe, com el TextGen
+X Alguns efectes no es graven al ZNO: Texture mapping...
+X El screenshot te que funcionar millor, i ha d'estar al toolbar
+X Implementar un stack REAL (que es generi una malla per cada pas que es faci a l'stack, per poder animar els passos)
+X   Poder eliminar algun element (pas) del STACK
+X Guardar al stack el contingut dels arxius, generar el mapa a partir del contingut del stack.
+X No carregar les textures desde arxiu, carregarles desde data (oe_displ.data)
+X Generar les malles a partir del que hi ha al stack
+X Poder eliminar malles del stack
+X Poder moure les malles de posició
+
+X El efecte displace ha de tenir un grau de afecció (50%, etc...)
+X Cada efecte de displace ha de tenir el seu propi mapejat de textura (molt lent??).
+X Poder moure la càmara per la escena, per poder apreciar la textura d'environment
+X Poder guardar els arxius en un format propi: ZNO (Zona Neutra Object)·
+X Conté la info de cada pas, així com la info de la textura feta servir per generar l'objecte
