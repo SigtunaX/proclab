@@ -421,6 +421,25 @@
 	tg_temptext[0]->dtex[0].celular = t_data;
 }
 
+
+- (IBAction) showPlasma:(id)sender
+{
+	if ([TGPlasmaCtrl isvisibleCtrl])
+		[TGPlasmaCtrl hideCtrl];
+	else
+	{
+		[self hideAllPanels];
+		[TGPlasmaCtrl showCtrl];
+		[TGPlasmaCtrl redraw:nil];
+	}
+}
+
+- (void)GetPlasmaData:(T_PLASMA)t_data
+{
+	tg_temptext[0]->dtex[0].type=4;
+	tg_temptext[0]->dtex[0].plasma= t_data;
+}
+
 #pragma mark Logs
 - (void) LogFinalTexInfo
 {

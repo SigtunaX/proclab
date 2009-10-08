@@ -10,6 +10,7 @@
 #import "TG_Controls/TGPlainControl.h"
 #import "TG_Controls/TGNoiseControl.h"
 #import "TG_Controls/TGCelularControl.h"
+#import "TG_Controls/TGPlasmaControl.h"
 #import "c_structs.h"
 #import "textgenlib/main.h"
 #import "controls/tableview.h"
@@ -28,7 +29,7 @@
 	IBOutlet TGPlainControl *TGPlainCtrl;
 	IBOutlet TGNoiseControl *TGNoiseCtrl;
 	IBOutlet TGCelularControl *TGCelularCtrl;
-	//IBOutlet TGPlasmaControl *TGPlasmaCtrl;
+	IBOutlet TGPlasmaControl *TGPlasmaCtrl;
 
 	/* Common-C structures */
 	CTextGen	*tg_final;
@@ -47,6 +48,9 @@
 
 - (IBAction) showCelular:(id)sender;
 - (void)GetCelularData:(T_CELULAR)t_data;
+
+- (IBAction) showPlasma:(id)sender;
+- (void)GetPlasmaData:(T_PLASMA)t_data;
 
 - (void) SaveToTGA:(id)sender;
 - (IBAction) openZNTfile:(id)sender;

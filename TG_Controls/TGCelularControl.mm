@@ -1,4 +1,4 @@
-#import "TGPlainControl.h"
+#import "TGCelularControl.h"
 #import "../TGGUIControl.h"
 
 @implementation TGCelularControl
