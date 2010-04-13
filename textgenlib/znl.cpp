@@ -122,10 +122,7 @@ void ZNL::LoadOneTex (int tex_id)
 	for (int j=0; j<(file_size-data_size); j++)
 		tg_buf[j] = data[j+data_size];
 
-#ifdef TEXTURE_LIBRARY_EDITOR
-	znt.checkHeader = false;
-#endif
-	znt.LoadMem(tg_buf);
+	znt.LoadMem(tg_buf, false); //if TEXTURE_LIBRARY_EDITOR (ZNL) -> checkheader=false
 	data_size+=znt.data_size;
 	// NOTA: No fa falta fer el free() de tg_buf, ja que esta "linkat" amb el znt.data, i el propi destructor del ZNT ja fa el free (probat!)
 }

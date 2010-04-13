@@ -128,7 +128,7 @@ void ZNT::SaveBody(int numtex)
 // Texture Body
 void ZNT::SaveTexBody(int numtex)
 {
-	data[data_size++] = t->dtex[numtex].oppacity;
+	data[data_size++] = t->dtex[numtex].opacity;
 	data[data_size++] = t->dtex[numtex].operation;
 }
 
@@ -209,10 +209,11 @@ void ZNT::SaveEffCustom(int numtex)
 
 ///////////////////
 // Load texture
-char ZNT::LoadFile()
+char ZNT::LoadFile(char checkHeader)
 {
 	char msg = -1;
-	if ((data_size=file2char (filename, data))==-1)
+	this->checkHeader = checkHeader;
+	if ((data_size=(unsigned short)file2char (filename, data))==-1)
 		return msg;
 	else
 	{
@@ -227,8 +228,9 @@ char ZNT::LoadFile()
 //////////////////////////////////////////////////////////////////////
 
 // Loads a texture from memory buffer
-void ZNT::LoadMem(unsigned char* &buffer)
+void ZNT::LoadMem(unsigned char* &buffer, char checkHeader)
 {
+	this->checkHeader = checkHeader;
 	data = buffer;
 	LoadProcess();	// Llegim les textures del string
 }
@@ -372,8 +374,8 @@ void ZNT::LoadBody(int numtex)
 // Texture Body
 void ZNT::LoadTexBody(int numtex)
 {
-	t->dtex[numtex].oppacity	= data[data_size++];
-	t->dtex[numtex].operation	= data[data_size++];
+	t->dtex[numtex].opacity	= data[data_size++];
+	t->dtex[numtex].operation = data[data_size++];
 }
 
 // Effects Body

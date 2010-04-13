@@ -67,7 +67,8 @@
 
 -(void)selectRow:(int)row
 {
-	[TableView selectRow:row byExtendingSelection:false];
+	NSIndexSet * selSet = [NSIndexSet indexSetWithIndex:row];
+	[TableView selectRowIndexes:selSet byExtendingSelection:NO];
 }
 
 -(int)numberOfRows

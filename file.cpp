@@ -34,6 +34,4 @@ int file2char (char filename[], unsigned char* &buffer)
 		fclose(fd);
 	}
 	return filesize;
-
-//	return 0;
 }

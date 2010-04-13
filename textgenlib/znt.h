@@ -11,18 +11,18 @@ public:
 #ifdef TEXTURE_EDITOR
 	ZNT(char file[], CTextGen &texture);
 	virtual ~ZNT();
-	char LoadFile();
+	char LoadFile(char checkHeader);
 	bool SaveFile();
 	void GenDataArray();
-	char checkHeader;	// Checks headers, set this to false, if our file does not have the first 2 bytes
 #endif
 
 #ifdef TEXTURE_ENGINE
 	ZNT(CTextGen &texture);
 #endif
-	void LoadMem(unsigned char* &buffer);
+	void LoadMem(unsigned char* &buffer, char checkHeader);
 	unsigned short data_size;	// Size of the data to save
 	unsigned char *data;		// This is the data of the file to save/read
+	char checkHeader;	// Checks headers, set this to false, if our file does not have the first 2 bytes
 
 private:
 	CTextGen *t;

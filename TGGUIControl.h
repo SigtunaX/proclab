@@ -9,8 +9,10 @@
 //#import <UIKit/UIKit.h
 #import "TG_Controls/TGPlainControl.h"
 #import "TG_Controls/TGNoiseControl.h"
+#import "TG_Controls/TGBlobControl.h"
 #import "TG_Controls/TGCelularControl.h"
 #import "TG_Controls/TGPlasmaControl.h"
+#import "TG_Controls/TGPerlinControl.h"
 #import "c_structs.h"
 #import "textgenlib/main.h"
 #import "controls/tableview.h"
@@ -28,9 +30,11 @@
 	/* Controladores de los paneles "hijos"*/
 	IBOutlet TGPlainControl *TGPlainCtrl;
 	IBOutlet TGNoiseControl *TGNoiseCtrl;
+	IBOutlet TGBlobControl *TGBlobCtrl;
 	IBOutlet TGCelularControl *TGCelularCtrl;
 	IBOutlet TGPlasmaControl *TGPlasmaCtrl;
-
+	IBOutlet TGPerlinControl *TGPerlinCtrl;
+	
 	/* Common-C structures */
 	CTextGen	*tg_final;
 	CTextGen	*tg_temptext[TMP_TEXTURES];
@@ -46,14 +50,21 @@
 - (IBAction) showNoise:(id)sender;
 - (void) GetNoiseData:(T_NOISE)t_data;
 
+- (IBAction) showBlob:(id)sender;
+- (void)GetBlobData:(T_BLOB)t_data;
+
 - (IBAction) showCelular:(id)sender;
 - (void)GetCelularData:(T_CELULAR)t_data;
 
 - (IBAction) showPlasma:(id)sender;
 - (void)GetPlasmaData:(T_PLASMA)t_data;
 
+- (IBAction) showPerlin:(id)sender;
+- (void)GetPerlinData:(T_PERLIN)t_data;
+
 - (void) SaveToTGA:(id)sender;
 - (IBAction) openZNTfile:(id)sender;
+- (IBAction) saveZNTfile:(id)sender;
 
 - (void) resetTemp:(id)sender;
 - (void) renderFinal:(id)sender;
