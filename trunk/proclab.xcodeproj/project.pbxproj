@@ -11,7 +11,9 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		F100BC6C1175208300BAD050 /* TGPerlinControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F100BC6B1175208300BAD050 /* TGPerlinControl.mm */; };
 		F115DB570FF8292A00D2907C /* TGCelularControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F115DB550FF8292A00D2907C /* TGCelularControl.mm */; };
+		F11871C710B9DE2900B005F4 /* TGBlobControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F11871C610B9DE2900B005F4 /* TGBlobControl.mm */; };
 		F11AA2350FE5ACDE0031FE4E /* apple_font.mm in Sources */ = {isa = PBXBuildFile; fileRef = F11AA2330FE5ACDE0031FE4E /* apple_font.mm */; };
 		F11AA2510FE5AD4E0031FE4E /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F11AA24F0FE5AD4E0031FE4E /* file.cpp */; };
 		F11D0B850FF918A4001CBBCD /* TGNoiseControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F11D0B840FF918A4001CBBCD /* TGNoiseControl.mm */; };
@@ -37,8 +39,12 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ProcLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProcLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F100BC6A1175208300BAD050 /* TGPerlinControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGPerlinControl.h; path = TG_Controls/TGPerlinControl.h; sourceTree = "<group>"; };
+		F100BC6B1175208300BAD050 /* TGPerlinControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TGPerlinControl.mm; path = TG_Controls/TGPerlinControl.mm; sourceTree = "<group>"; };
 		F115DB550FF8292A00D2907C /* TGCelularControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TGCelularControl.mm; path = TG_Controls/TGCelularControl.mm; sourceTree = "<group>"; };
 		F115DB560FF8292A00D2907C /* TGCelularControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGCelularControl.h; path = TG_Controls/TGCelularControl.h; sourceTree = "<group>"; };
+		F11871C510B9DE2900B005F4 /* TGBlobControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGBlobControl.h; path = TG_Controls/TGBlobControl.h; sourceTree = "<group>"; };
+		F11871C610B9DE2900B005F4 /* TGBlobControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TGBlobControl.mm; path = TG_Controls/TGBlobControl.mm; sourceTree = "<group>"; };
 		F11AA2320FE5ACDE0031FE4E /* apple_font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = apple_font.h; sourceTree = "<group>"; };
 		F11AA2330FE5ACDE0031FE4E /* apple_font.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = apple_font.mm; sourceTree = "<group>"; };
 		F11AA2340FE5ACDE0031FE4E /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
@@ -169,6 +175,10 @@
 		F153CC2B0DBBE5A7002DBFAC /* TG_Controls */ = {
 			isa = PBXGroup;
 			children = (
+				F100BC6A1175208300BAD050 /* TGPerlinControl.h */,
+				F100BC6B1175208300BAD050 /* TGPerlinControl.mm */,
+				F11871C510B9DE2900B005F4 /* TGBlobControl.h */,
+				F11871C610B9DE2900B005F4 /* TGBlobControl.mm */,
 				F115DB550FF8292A00D2907C /* TGCelularControl.mm */,
 				F115DB560FF8292A00D2907C /* TGCelularControl.h */,
 				F11D0B840FF918A4001CBBCD /* TGNoiseControl.mm */,
@@ -281,6 +291,8 @@
 				F115DB570FF8292A00D2907C /* TGCelularControl.mm in Sources */,
 				F11D0B850FF918A4001CBBCD /* TGNoiseControl.mm in Sources */,
 				F1758B54107D3C10005597B5 /* TGPlasmaControl.mm in Sources */,
+				F11871C710B9DE2900B005F4 /* TGBlobControl.mm in Sources */,
+				F100BC6C1175208300BAD050 /* TGPerlinControl.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

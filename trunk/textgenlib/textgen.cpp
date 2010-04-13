@@ -271,7 +271,7 @@ void COneTextGen::Init()
 #ifdef TEXTURE_EDITOR
 	strcpy(name,"");
 #endif
-	oppacity	=	255;
+	opacity	=	255;
 	operation	=	0;
 }
 
@@ -285,7 +285,7 @@ COneTextGen &COneTextGen::operator= (const COneTextGen &ot)
 #endif
 	type = ot.type;
 	operation = ot.operation;
-	oppacity = ot.oppacity;
+	opacity = ot.opacity;
 
 	blob = ot.blob;
 	plain = ot.plain;
@@ -328,7 +328,7 @@ void COneTextGen::Regenerate (TEXTURE &t, unsigned char* &data)
 		case 8: Text_generate_xor		(t, t_xor, data);		break;
 		default:	break;
 	}
-	Text_opp (t, oppacity, data);
+	Text_opp (t, opacity, data);
 }
 
 

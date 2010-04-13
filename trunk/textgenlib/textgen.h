@@ -26,7 +26,7 @@ public:
 #endif
 	unsigned char	type;			// Tipus
 	unsigned char	operation;
-	unsigned char	oppacity;
+	unsigned char	opacity;
 
 	T_BLOB		blob;
 	T_PLAIN		plain;

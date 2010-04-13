@@ -98,25 +98,54 @@
 		for( i = 0; i < [files count]; i++ )
 		{
 			NSString* fileName = [files objectAtIndex:i];
-			NSLog(fileName);
-			const char *temp = [fileName fileSystemRepresentation];
-			int len = strlen(temp);
-			char sysctlPath [len+1];
-			strcpy(sysctlPath, temp);
-			
-			ZNT fd(sysctlPath, *tg_final);
+			const char *file = [fileName fileSystemRepresentation];
+			NSLog(@"Open File: %s", file);
+			ZNT fd((char*)file, *tg_final);
 			char msg;
-			msg = fd.LoadFile();
+			msg = fd.LoadFile(true);
 			
 			if (msg == -1)
 				NSLog(@"Err: openZNTfile --> Could not read the file. File version is not valid.");
 			if (msg == -2)
 				NSLog(@"Err: openZNTfile --> Could not read the file. File is not valid.");
 			
-			[self renderFinal:nil];			
+			[self renderFinal:nil];	
 		}
 	}
 }
+
+
+
+// save texture file
+- (IBAction) saveZNTfile:(id)sender
+{
+	// Create the File Save Panel class.
+	NSSavePanel* sPanel = [NSSavePanel savePanel];
+	//[oPanel setParentWindow:mainWindow];	// Define the parent of our dialog
+	[sPanel setFloatingPanel:NO];				// When we move our parent window, the dialog moves with it
+	[sPanel setRequiredFileType:@"znt"];
+	[sPanel setCanCreateDirectories:YES];		// Enable the creation of directories in the dialog
+	[sPanel setAlphaValue:0.95];				// Alpha value
+	[sPanel setTitle:@"Choose a filename"];
+	
+	// Display the dialog.  If the OK button was pressed,
+	// process the files.
+	if ( [sPanel runModalForDirectory:nil file:nil] == NSOKButton )
+	{
+		NSString* fileName = [sPanel filename];
+		
+		const char *file = [fileName fileSystemRepresentation];
+		NSLog(@"Save File: %s", file);
+				
+		ZNT fd((char *)file, *tg_final);
+		char msg;
+		msg = fd.SaveFile();
+
+		if (msg == -1)
+			NSLog(@"Err: saveZNTfile --> Could not save the file.");
+	}
+}
+
 
 // Save Final Texture to TGA
 - (void) SaveToTGA:(id)sender
@@ -219,14 +248,28 @@
 		NSLog(@"WARNING! Effect not recognized!");
 		return;
 	}
-	COneTextGen tg;
-	tg.type = type;
-	tg_final->dtex.insert(tg_final->dtex.end(), tg);
-	tg_final->dtexsize = tg_final->dtex.size();
-	int i = tg_final->dtex.size()-1; // ID de la textura que acabem d'afegir
-	tg_final->dtex[i].operation	= 0;
-	
-	[self renderFinal:nil];
+	if (tg_final->dtex.size()>0)
+	{
+		COneTextGen tg;
+		tg.type = type;
+		tg_final->dtex.insert(tg_final->dtex.end(), tg);
+		tg_final->dtexsize = tg_final->dtex.size();
+		int i = tg_final->dtex.size()-1; // ID de la textura que acabem d'afegir
+		tg_final->dtex[i].operation	= 0;
+		
+		[self renderFinal:nil];
+	}
+	else
+	{
+		NSAlert * askToContinue = [NSAlert alertWithMessageText:@"Impossible to perform"
+												  defaultButton:nil
+												alternateButton:nil
+													otherButton:nil
+									  informativeTextWithFormat:@"You cannot add effects without a base texture."];
+		[askToContinue runModal];
+		NSLog(@"AddEffect: You cannot add effects without a base texture");
+		return;
+	}
 }
 
 - (void) AddEffect_bw:(id)sender		{[self AddEffect:100];}
@@ -287,7 +330,10 @@
 -(void)UpdateLayerList:(id)sender
 {
 	int selected = [layerlist selectedRow];
+
 	if (selected<0)
+		selected = 0;
+	if (selected>=[layerlist numberOfRows])
 		selected = 0;
 	[layerlist deleteallLayers];
 	int i;
@@ -324,7 +370,6 @@
 			[layerlist addLayer:@"TRUE" image:thumbnail operation:myTex->operation properties:props];
 		}
 	}
-	
 	
 	if (selected <= tg_final->dtex.size())
 		[layerlist selectRow:selected];
@@ -378,7 +423,7 @@
 	}
 }
 
-- (void)GetPlainData:(T_PLAIN)t_data
+- (void) GetPlainData:(T_PLAIN)t_data
 {
 	tg_temptext[0]->dtex[0].type=0;
 	tg_temptext[0]->dtex[0].plain = t_data;
@@ -396,7 +441,7 @@
 	}
 }
 
-- (void)GetNoiseData:(T_NOISE)t_data
+- (void) GetNoiseData:(T_NOISE)t_data
 {
 	tg_temptext[0]->dtex[0].type=1;
 	tg_temptext[0]->dtex[0].noise = t_data;
@@ -413,6 +458,24 @@
 		[TGCelularCtrl showCtrl];
 		[TGCelularCtrl redraw:nil];
 	}
+}
+
+- (IBAction) showPerlin:(id)sender
+{
+	if ([TGPerlinCtrl isvisibleCtrl])
+		[TGPerlinCtrl hideCtrl];
+	else
+	{
+		[self hideAllPanels];
+		[TGPerlinCtrl showCtrl];
+		[TGPerlinCtrl redraw:nil];
+	}
+}
+
+- (void)GetPerlinData:(T_PERLIN)t_data
+{
+	tg_temptext[0]->dtex[0].type=2;
+	tg_temptext[0]->dtex[0].perlin= t_data;
 }
 
 - (void)GetCelularData:(T_CELULAR)t_data
@@ -439,6 +502,28 @@
 	tg_temptext[0]->dtex[0].type=4;
 	tg_temptext[0]->dtex[0].plasma= t_data;
 }
+
+
+
+
+- (IBAction) showBlob:(id)sender
+{
+	if ([TGBlobCtrl isvisibleCtrl])
+		[TGBlobCtrl hideCtrl];
+	else
+	{
+		[self hideAllPanels];
+		[TGBlobCtrl showCtrl];
+		[TGBlobCtrl redraw:nil];
+	}
+}
+
+- (void)GetBlobData:(T_BLOB)t_data
+{
+	tg_temptext[0]->dtex[0].type=5;
+	tg_temptext[0]->dtex[0].blob = t_data;
+}
+
 
 #pragma mark Logs
 - (void) LogFinalTexInfo
