@@ -50,10 +50,9 @@
 	t_data.c.G = 255*[myColorC greenComponent];
 	t_data.c.B = 255*[myColorC blueComponent];
 
-	NSColor *myColorS = [TGPColorS color];
-	t_data.s.R = 255*[myColorS redComponent];
-	t_data.s.G = 255*[myColorS greenComponent];
-	t_data.s.B = 255*[myColorS blueComponent];	
+	t_data.zoom = (unsigned char)[TGPZoom floatValue];
+	t_data.persistence = (unsigned char)[TGPPersistence floatValue];
+	t_data.octaves = (unsigned char)[TGPOctaves floatValue];
 }
 
 @end

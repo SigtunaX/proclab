@@ -63,7 +63,6 @@ void Text_opp (TEXTURE &Txt, unsigned char opp, unsigned char *data)
 
 	for (cnt=0; cnt<cnt_max; cnt++)
 		data[cnt] = (unsigned char) ( data[cnt] * (float)opp/255.0f );
-
 }
 
 
@@ -86,134 +85,136 @@ void Text_generate_plain (TEXTURE Txt, T_PLAIN plain, unsigned char *data)
 /////////////////////////////////////////////
 // NOISE FUNC
 /////////////////////////////////////////////
-float fNoise(register int x)
+inline double findnoise2(double x,double y)
 {
-	x = (x<<13)^x;
-	//return (float)(((x * (x * x * 15731 + 789221) + 1376312589) & 0x7fffffff) / 2147483648.0);
-	return (float)(((1 * (x * x * 15731 + 789221) + 1376312589) & 0x7fffffff) / 2147483648.0);
+	int n=(int)x+(int)y*57;
+	n=(n<<13)^n;
+	int nn=(n*(n*n*60493+19990303)+1376312589)&0x7fffffff;
+	return 1.0-((double)nn/1073741824.0);
 }
+
+inline double interpolate1(double a,double b,double x)
+{
+	double ft=x * 3.1415927;
+	double f=(1.0-cos(ft))* 0.5;
+	return a*(1.0-f)+b*f;
+}
+
+double noise2(double x,double y)
+{
+	double floorx=(double)((int)x);//This is kinda a cheap way to floor a double integer.
+	double floory=(double)((int)y);
+	double s,t,u,v;//Integer declaration
+	s=findnoise2(floorx,floory); 
+	t=findnoise2(floorx+1,floory);
+	u=findnoise2(floorx,floory+1);//Get the surrounding pixels to calculate the transition.
+	v=findnoise2(floorx+1,floory+1);
+	double int1=interpolate1(s,t,x-floorx);//Interpolate between the values.
+	double int2=interpolate1(u,v,x-floorx);//Here we use x-floorx, to get 1st dimension. Don't mind the x-floorx thingie, it's part of the cosine formula.
+	return interpolate1(int1,int2,y-floory);//Here we use y-floory, to get the 2nd dimension.
+}
+
 
 void Text_generate_noise (TEXTURE Txt, T_NOISE noise, unsigned char *data)
 {
 	int x,y;
 	int cnt=0;
 
-	for (x=0; x<Txt.w; x++)
-		for (y=0; y<Txt.h; y++)
+	for (y=0; y<Txt.h; y++)
+		for (x=0; x<Txt.w; x++)
 		{
-			data [cnt++]=(unsigned char)(255.0f*fNoise(x+y*noise.c.R));
-			data [cnt++]=(unsigned char)(255.0f*fNoise(x+y*noise.c.G));
-			data [cnt++]=(unsigned char)(255.0f*fNoise(x+y*noise.c.B));
+			data [cnt++]=(unsigned char)(255.0f*findnoise2(x, y+noise.c.R));
+			data [cnt++]=(unsigned char)(255.0f*findnoise2(x, y+noise.c.G));
+			data [cnt++]=(unsigned char)(255.0f*findnoise2(x, y+noise.c.B));
 		}
 }
 
 /////////////////////////////////////////////
 // PERLIN TEXTURE
 /////////////////////////////////////////////
-float InterPol(float a, float b, float x)
-{											//a altura 1a
-	return a+(b-a)*x*x*(3-2*x);				//b altura 2a
-}											//c si = 0 entonces a, si = 1 entonces b
-
-float PerlinNoise(float x,float y,int width,int octaves,int seed)
-{
-	if (octaves>5) {octaves=5;}             // octaves: Numero de pasadas a distinta amplitud y periodo
-	double a,b,freq,cachox,cachoy;
-	double valor=0.0;
-	int casilla,num_pasos,pasox,pasoy;
-	int amplitud=256;                        //La amplitud es 128,64,32,16... para cada pasada
-	int periodo=256;                         //El periodo es similar a la amplitud
-	
-	for (int s=0;s<octaves;s++)
-	{
-		amplitud>>=1;                      //Manera r·pida de dividir entre 2
-		periodo>>=1;
-		freq=1/float(periodo);             //Optimizacion para dividir 1 vez y multiplicar luego
-		num_pasos=int(width*freq);         //Para el const que vimos en IntNoise
-		pasox=int(x*freq);                 //Indices del vÈrtice superior izquerda del cuadrado
-		pasoy=int(y*freq);                 //en el que nos encontramos
-		cachox=x*freq-pasox;               //frac_x y frac_y en el ejemplo
-		cachoy=y*freq-pasoy;
-		casilla=pasox+pasoy*num_pasos;     // Ìndice final del IntNoise
-		a=InterPol(fNoise(casilla+seed),fNoise(casilla+1+seed),(float)cachox);
-		b=InterPol(fNoise(casilla+num_pasos+seed),fNoise(casilla+1+num_pasos+seed),(float)cachox);
-		valor+=(float)InterPol((float)a,(float)b,(float)cachoy)*amplitud;   //superposicion del valor final con anteriores
-	}
-	return (float)valor;					//seed es un numero que permite generar imagenes distintas
-}											//pues IntNoise dar· valores distintos
-
 
 void Text_generate_perlin (TEXTURE Txt, T_PERLIN perlin, unsigned char *data)
 {	
 	int x,y;
 	int cnt=0;
+	double zoom = perlin.zoom;
+	double p=(double)perlin.persistence/255.0;
+	int octaves = perlin.octaves;
 	
 	for (x=0; x<Txt.w; x++)
 		for (y=0; y<Txt.h; y++)
 		{
-			data [cnt++] = (int)(PerlinNoise((float)x,(float)y,Txt.w,perlin.c.R,perlin.s.R));
-			data [cnt++] = (int)(PerlinNoise((float)x,(float)y,Txt.w,perlin.c.G,perlin.s.G));
-			data [cnt++] = (int)(PerlinNoise((float)x,(float)y,Txt.w,perlin.c.B,perlin.s.B));
+			double getnoise =0;
+			for(int a=0;a<octaves-1;a++)//This loops trough the octaves.
+			{
+				double frequency = pow(2,a);//This increases the frequency with every loop of the octave.
+				double amplitude = pow(p,a);//This decreases the amplitude with every loop of the octave.
+				getnoise += noise2(((double)x)*frequency/zoom,((double)y)/zoom*frequency)*amplitude;//This uses our perlin noise functions. It calculates all our zoom and frequency and amplitude
+			}
+			int color= (int)((getnoise*128.0)+128.0);//Convert to 0-256 values.
+			if(color>255)
+				color=255;
+			if(color<0)
+				color=0;
+			
+			data [cnt++] = (int)((perlin.c.R/255.0)*(double)color);
+			data [cnt++] = (int)((perlin.c.G/255.0)*(double)color);
+			data [cnt++] = (int)((perlin.c.B/255.0)*(double)color);
 		}
 }
+
+
 
 /////////////////////////////////////////////
 // CELLULAR TEXTURE
 /////////////////////////////////////////////
-float Cellular(float x,float y,int width,int tam_cas, int seed, int cell_type)
+
+float WrapDist (int width, int height, int x, int y, int px, int py)
 {
-	double primero=2*tam_cas, segundo=2*tam_cas,tercero=2*tam_cas,dist_aux;
-	int casilla_pto;
-	double xpunto, ypunto;
-	if (tam_cas==0)
-		tam_cas=1;
-	int n_casillas=int(width/tam_cas)+1;
-	int casillax=int(x/tam_cas);
-	int casillay=int(y/tam_cas);
-	int casilla=n_casillas*casillay+casillax;
+	int dx = abs(x-px);
+	int dy = abs(y-py);
+	if (dx > width/2)
+		dx = width-dx;
+	if (dy > height/2)
+		dy = height-dy;
+	return sqrtf( dx*dx + dy*dy );
+}
 
-	for (int j=-1;j<2;j++)
+// Calculate distance to nearest point
+float DistToNearestPoint(int w, int h, int x, int y, int* xcoords, int* ycoords, int numpoints)
+{
+	float dist;
+	float mindist = 100000;
+	for (int cnt = 0; cnt<numpoints; cnt++)
 	{
-		for (int i=-1;i<2;i++)
-		{
-			casilla_pto=casilla+i+j*n_casillas;
-			xpunto=(casillax+i)*tam_cas+fNoise(casilla_pto+seed)*tam_cas;
-			ypunto=(casillay+j)*tam_cas+fNoise(casilla_pto+10+seed)*tam_cas;
-			switch(cell_type)
-			{
-			case 1:
-				dist_aux=int(abs(int(x-xpunto))+abs(int(y-ypunto)));		//Distancia Manhattan
-				break;
-			case 2:
-				dist_aux=int(max((int)fabs(x-xpunto),(int)fabs(y-ypunto)));	//Distancia Cuadrada
-				break;
-			default:
-				dist_aux=sqrt((x-xpunto)*(x-xpunto)+(y-ypunto)*(y-ypunto));
-				break;
-			}
+		dist = WrapDist(w, h, xcoords[cnt], ycoords[cnt], x, y);
+//		dist = sqrtf( (xcoords[cnt]-x)*(xcoords[cnt]-x) + (ycoords[cnt]-y)*(ycoords[cnt]-y) );
+		if (dist < mindist)
+			mindist = dist;
+	}
 
-			if (primero>dist_aux)
-			{
-                tercero=segundo;
-                segundo=primero;
-                primero=dist_aux;
-			}
-			else
-			{
-                if (segundo>dist_aux)
-				{
-					tercero= segundo;
-					segundo=dist_aux;
-				}
-				else
-				{
-					if (tercero>dist_aux)
-						{tercero=dist_aux;}
-				}
-			}
+	return mindist;
+}
+
+
+// Calculate distance to nearest point
+float DistToNearestPoint2(int w, int h, int x, int y, int* xcoords, int* ycoords, int numpoints)
+{
+	float dist, dist2;
+	float mindist = 100000;
+	for (int cnt = 0; cnt<numpoints; cnt++)
+	{
+		dist = WrapDist(w, h, xcoords[cnt], ycoords[cnt], x, y);
+		//dist = sqrtf( (xcoords[cnt]-x)*(xcoords[cnt]-x) + (ycoords[cnt]-y)*(ycoords[cnt]-y) );
+		if (dist < dist2)
+		{
+			dist2 = dist;
+			if (dist2 < mindist)
+				mindist = dist2;
 		}
 	}
-	return (float)(255.0*2.0*primero/(segundo+tercero));
+	
+	return dist2;
 }
 
 void Text_generate_celular (TEXTURE Txt, T_CELULAR celular, unsigned char *data)
@@ -221,13 +222,49 @@ void Text_generate_celular (TEXTURE Txt, T_CELULAR celular, unsigned char *data)
 	int x,y;
 	int cnt=0;
 	
-	for (x=0; x<Txt.w; x++)
-		for (y=0; y<Txt.h; y++)
+	
+	float *distBuffer;
+	int *xcoords;
+	int *ycoords;
+	float mindist =  100000;
+	float maxdist = -100000;
+	int numPoints = 10;
+
+	distBuffer = (float*) malloc (Txt.w*Txt.h*sizeof (float));
+	xcoords = (int*) malloc (numPoints*sizeof (int));
+	ycoords = (int*) malloc (numPoints*sizeof (int));
+	
+	for (cnt=0; cnt<numPoints; cnt++)
+	{
+		xcoords[cnt] = abs(Txt.h * noise2(cnt*celular.s.R,celular.s.G*cnt));
+		ycoords[cnt] = abs(Txt.w * noise2(celular.s.B*cnt,(celular.s.G*celular.s.B)));
+	}
+		
+						
+	cnt = 0;
+	for (y=0; y<Txt.h; y++)
+		for (x=0; x<Txt.w; x++)
 		{
-			data [cnt++] = (unsigned char)(Cellular((float)x,(float)y,Txt.w,celular.c.R,celular.s.R,celular.type));
-			data [cnt++] = (unsigned char)(Cellular((float)x,(float)y,Txt.w,celular.c.G,celular.s.G,celular.type));
-			data [cnt++] = (unsigned char)(Cellular((float)x,(float)y,Txt.w,celular.c.B,celular.s.B,celular.type));
+			if (celular.type==0)
+				distBuffer[x+y*Txt.h] = DistToNearestPoint (Txt.w, Txt.h, x, y, xcoords, ycoords, numPoints);
+			else
+				distBuffer[x+y*Txt.h] = DistToNearestPoint2(Txt.w, Txt.h, x, y, xcoords, ycoords, numPoints) - DistToNearestPoint (Txt.w, Txt.h, x, y, xcoords, ycoords, numPoints);
+
+			float distance = distBuffer[x+y*Txt.h];
+			
+			if (distance < mindist)
+				mindist = distance;
+			if (distance > maxdist)
+				maxdist = distance;
+
+			data [cnt++] = (unsigned char) (celular.c.R*((distance-mindist)/(maxdist-mindist)));
+			data [cnt++] = (unsigned char) (celular.c.G*((distance-mindist)/(maxdist-mindist)));
+			data [cnt++] = (unsigned char) (celular.c.B*((distance-mindist)/(maxdist-mindist)));
 		}
+
+	free (distBuffer);
+	free (xcoords);
+	free (ycoords);
 }
 
 

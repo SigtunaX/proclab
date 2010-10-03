@@ -12,7 +12,9 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		F100BC6C1175208300BAD050 /* TGPerlinControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F100BC6B1175208300BAD050 /* TGPerlinControl.mm */; };
+		F10B068711DE6A2100908D92 /* TGEfxCustomControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F10B068611DE6A2100908D92 /* TGEfxCustomControl.mm */; };
 		F115DB570FF8292A00D2907C /* TGCelularControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F115DB550FF8292A00D2907C /* TGCelularControl.mm */; };
+		F11784D511CC26810096172F /* tga.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F11784D311CC26810096172F /* tga.cpp */; };
 		F11871C710B9DE2900B005F4 /* TGBlobControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F11871C610B9DE2900B005F4 /* TGBlobControl.mm */; };
 		F11AA2350FE5ACDE0031FE4E /* apple_font.mm in Sources */ = {isa = PBXBuildFile; fileRef = F11AA2330FE5ACDE0031FE4E /* apple_font.mm */; };
 		F11AA2510FE5AD4E0031FE4E /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F11AA24F0FE5AD4E0031FE4E /* file.cpp */; };
@@ -41,8 +43,12 @@
 		8D1107320486CEB800E47090 /* ProcLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProcLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F100BC6A1175208300BAD050 /* TGPerlinControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGPerlinControl.h; path = TG_Controls/TGPerlinControl.h; sourceTree = "<group>"; };
 		F100BC6B1175208300BAD050 /* TGPerlinControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TGPerlinControl.mm; path = TG_Controls/TGPerlinControl.mm; sourceTree = "<group>"; };
+		F10B068511DE6A2100908D92 /* TGEfxCustomControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGEfxCustomControl.h; path = TG_Controls/TGEfxCustomControl.h; sourceTree = "<group>"; };
+		F10B068611DE6A2100908D92 /* TGEfxCustomControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TGEfxCustomControl.mm; path = TG_Controls/TGEfxCustomControl.mm; sourceTree = "<group>"; };
 		F115DB550FF8292A00D2907C /* TGCelularControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TGCelularControl.mm; path = TG_Controls/TGCelularControl.mm; sourceTree = "<group>"; };
 		F115DB560FF8292A00D2907C /* TGCelularControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGCelularControl.h; path = TG_Controls/TGCelularControl.h; sourceTree = "<group>"; };
+		F11784D311CC26810096172F /* tga.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tga.cpp; path = libs/tga.cpp; sourceTree = "<group>"; };
+		F11784D411CC26810096172F /* tga.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tga.h; path = libs/tga.h; sourceTree = "<group>"; };
 		F11871C510B9DE2900B005F4 /* TGBlobControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGBlobControl.h; path = TG_Controls/TGBlobControl.h; sourceTree = "<group>"; };
 		F11871C610B9DE2900B005F4 /* TGBlobControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TGBlobControl.mm; path = TG_Controls/TGBlobControl.mm; sourceTree = "<group>"; };
 		F11AA2320FE5ACDE0031FE4E /* apple_font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = apple_font.h; sourceTree = "<group>"; };
@@ -92,6 +98,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F11784D211CC266D0096172F /* libs */,
 				F163943E0E3A2E3100A14991 /* textgenlib */,
 				F176AE720DAC0A5A00AF7EA6 /* MainGUIControl.m */,
 				F176AE710DAC0A5A00AF7EA6 /* MainGUIControl.h */,
@@ -172,9 +179,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F11784D211CC266D0096172F /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				F11784D311CC26810096172F /* tga.cpp */,
+				F11784D411CC26810096172F /* tga.h */,
+			);
+			name = libs;
+			sourceTree = "<group>";
+		};
 		F153CC2B0DBBE5A7002DBFAC /* TG_Controls */ = {
 			isa = PBXGroup;
 			children = (
+				F10B068511DE6A2100908D92 /* TGEfxCustomControl.h */,
+				F10B068611DE6A2100908D92 /* TGEfxCustomControl.mm */,
 				F100BC6A1175208300BAD050 /* TGPerlinControl.h */,
 				F100BC6B1175208300BAD050 /* TGPerlinControl.mm */,
 				F11871C510B9DE2900B005F4 /* TGBlobControl.h */,
@@ -293,6 +311,8 @@
 				F1758B54107D3C10005597B5 /* TGPlasmaControl.mm in Sources */,
 				F11871C710B9DE2900B005F4 /* TGBlobControl.mm in Sources */,
 				F100BC6C1175208300BAD050 /* TGPerlinControl.mm in Sources */,
+				F11784D511CC26810096172F /* tga.cpp in Sources */,
+				F10B068711DE6A2100908D92 /* TGEfxCustomControl.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -223,7 +223,9 @@ void COneTextGen::Init()
 	noise.c.R=noise.c.G=noise.c.B=0;
 	// Perlin
 	perlin.c.R=perlin.c.G=perlin.c.B=0;
-	perlin.s.R=perlin.s.G=perlin.s.B=0;
+	perlin.zoom = 100;
+	perlin.persistence = 200;
+	perlin.octaves=8;
 	// Cell
 	celular.c.R=celular.c.G=celular.c.B=1;
 	celular.s.R=celular.s.G=celular.s.B=0;
