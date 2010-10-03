@@ -100,7 +100,7 @@
 		return [values count];
 }
 
--(int)comboBoxCell:(NSComboBoxCell*)cell indexOfItemWithStringValue:(NSString*)st
+-(NSUInteger)comboBoxCell:(NSComboBoxCell*)cell indexOfItemWithStringValue:(NSString*)st
 {
 	NSArray *values = [cell representedObject];
 	if(values == nil)

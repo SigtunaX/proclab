@@ -38,7 +38,10 @@ typedef struct tagT_NOISE {
 } T_NOISE;
 
 typedef struct tagT_PERLIN {
-	UC_COLOR3		c,s;
+	UC_COLOR3		c;
+	unsigned char	zoom;
+	unsigned char	persistence;
+	unsigned char	octaves;
 } T_PERLIN;
 
 typedef struct tagT_CELULAR {

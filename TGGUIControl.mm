@@ -10,6 +10,7 @@
 
 
 #include "znt.h"
+#include "libs/tga.h"
 
 @implementation TGGUIControl
 
@@ -148,9 +149,33 @@
 
 
 // Save Final Texture to TGA
-- (void) SaveToTGA:(id)sender
+- (IBAction) saveTGAfile:(id)sender
 {
-	NSLog(@"TODO: SaveToTGA");
+	// Create the File Save Panel class.
+	NSSavePanel* sPanel = [NSSavePanel savePanel];
+	//[oPanel setParentWindow:mainWindow];	// Define the parent of our dialog
+	[sPanel setFloatingPanel:NO];				// When we move our parent window, the dialog moves with it
+	[sPanel setRequiredFileType:@"tga"];
+	[sPanel setCanCreateDirectories:YES];		// Enable the creation of directories in the dialog
+	[sPanel setAlphaValue:0.95];				// Alpha value
+	[sPanel setTitle:@"Choose a filename"];
+	
+	// Display the dialog.  If the OK button was pressed,
+	// process the files.
+	if ( [sPanel runModalForDirectory:nil file:nil] == NSOKButton )
+	{
+		NSString* fileName = [sPanel filename];
+		
+		const char *file = [fileName fileSystemRepresentation];
+		NSLog(@"Save File: %s", file);
+		
+		TGA tga(file);
+		char msg;
+		msg = tga.Save(tg_final->t.w, tg_final->t.h, tg_final->t.data);
+		
+		if (msg == -1)
+			NSLog(@"Err: saveTGAfile --> Could not save the file.");
+	}
 }
 
 #pragma mark Render Texture
@@ -288,6 +313,14 @@
 - (void) AddEffect_custom3x3:(id)sender
 {
 	// TODO
+	[self AddEffect:150];
+	int size = tg_final->dtex.size()-1;
+	if (size>0)
+	{
+		if (tg_final->dtex[size].type==150)
+			[self showEfxCustom:nil];
+	}
+	NSLog(@"TODO: Add effect custom 3x3");
 }
 
 
@@ -523,6 +556,36 @@
 	tg_temptext[0]->dtex[0].type=5;
 	tg_temptext[0]->dtex[0].blob = t_data;
 }
+
+
+
+- (IBAction) showEfxCustom:(id)sender
+{
+	if ([TGEfxCustomCtrl isvisibleCtrl])
+		[TGEfxCustomCtrl hideCtrl];
+	else
+	{
+		[self hideAllPanels];
+		[TGEfxCustomCtrl showCtrl];
+		[TGEfxCustomCtrl redraw:nil];
+	}
+}
+
+- (void)GetEfxCustom:(T_EFF_CUSTOM)t_data
+{
+//	tg_temptext[0]->dtex[0].type=150;
+//	tg_temptext[0]->dtex[0].eff_cust = t_data;
+	int size = tg_final->dtex.size()-1;
+	if (size>0)
+	{
+		if (tg_final->dtex[size].type == 150)
+			tg_final->dtex[size].eff_cust = t_data;
+		[self renderFinal:nil];
+	}
+//		tg_temptext[0]->dtex[0].type=150;
+	//	tg_temptext[0]->dtex[0].eff_cust = t_data;
+}
+
 
 
 #pragma mark Logs

@@ -3,7 +3,9 @@
 
 @interface TGPerlinControl : NSObject {
 	IBOutlet NSColorWell *TGPColorC;
-	IBOutlet NSColorWell *TGPColorS;
+	IBOutlet NSSlider *TGPZoom;
+	IBOutlet NSSlider *TGPPersistence;
+	IBOutlet NSSlider *TGPOctaves;
 	IBOutlet NSPanel *TGPerlinPanel;
     IBOutlet NSObject *_parent;
 @public

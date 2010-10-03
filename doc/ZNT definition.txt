@@ -1,7 +1,7 @@
 Descripción del archivo ZNT (Zona Neutra Texture)
 ------------------------------------------------------------
-v. del documento:	1.2
-v. del formato ZNT:	15
+v. del documento:	1.3
+v. del formato ZNT:	16
 
 By Xphere, creador del formato ZNT
 Zona Neutra: http://scener.zonan.org
@@ -81,12 +81,12 @@ Si la textura es de tipo 1: Noise (3 bytes)
 
 Si la textura es de tipo 2: Perlin (6 bytes)
 ----------------------------------
-1 ubyte - Valor Octaves R (de 0 a 8)
-1 ubyte - Valor Octaves G (de 0 a 8)
-1 ubyte - Valor Octaves B (de 0 a 8)
-1 ubyte - Valor Seed R (de 0 a 12)
-1 ubyte - Valor Seed G (de 0 a 12)
-1 ubyte - Valor Seed B (de 0 a 12)
+1 ubyte - Valor R (de 0 a 255)
+1 ubyte - Valor G (de 0 a 255)
+1 ubyte - Valor B (de 0 a 255)
+1 ubyte - Valor de Zoom (de 1 a 255)
+1 ubyte - Valor Persistence (de 1 a 255)
+1 ubyte - Valor Octaves (de 2 a 255, max recomendado 32)
 
 Si la textura es de tipo 3: Celular (7 bytes)
 -----------------------------------

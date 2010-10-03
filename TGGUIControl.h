@@ -13,6 +13,7 @@
 #import "TG_Controls/TGCelularControl.h"
 #import "TG_Controls/TGPlasmaControl.h"
 #import "TG_Controls/TGPerlinControl.h"
+#import "TG_Controls/TGEfxCustomControl.h"
 #import "c_structs.h"
 #import "textgenlib/main.h"
 #import "controls/tableview.h"
@@ -34,6 +35,9 @@
 	IBOutlet TGCelularControl *TGCelularCtrl;
 	IBOutlet TGPlasmaControl *TGPlasmaCtrl;
 	IBOutlet TGPerlinControl *TGPerlinCtrl;
+
+	IBOutlet TGEfxCustomControl *TGEfxCustomCtrl;
+
 	
 	/* Common-C structures */
 	CTextGen	*tg_final;
@@ -62,9 +66,13 @@
 - (IBAction) showPerlin:(id)sender;
 - (void)GetPerlinData:(T_PERLIN)t_data;
 
-- (void) SaveToTGA:(id)sender;
+- (IBAction) showEfxCustom:(id)sender;
+- (void)GetEfxCustom:(T_EFF_CUSTOM)t_data;
+
+
 - (IBAction) openZNTfile:(id)sender;
 - (IBAction) saveZNTfile:(id)sender;
+- (IBAction) saveTGAfile:(id)sender;
 
 - (void) resetTemp:(id)sender;
 - (void) renderFinal:(id)sender;
