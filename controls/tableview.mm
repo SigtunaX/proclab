@@ -32,14 +32,14 @@
 {
 	[records removeObjectAtIndex:pos];
 	[TableView reloadData];
-	NSLog(@"Layer list count (records internal): %d", [records count]);
+	NSLog(@"Layer list count (records internal): %lu", [records count]);
 }
 
 -(void)deleteallLayers
 {
 	[records removeAllObjects];
 	[TableView reloadData];
-	NSLog(@"Layer list count (records internal): %d", [records count]);
+	NSLog(@"Layer list count (records internal): %lu", [records count]);
 }
 
 -(void)addLayer:(NSString*)enabled image:(NSImage*)thumb operation:(int)oper_ind properties:(NSString*)props
@@ -53,7 +53,7 @@
 	[dic setObject:[NSString stringWithString:props] forKey:@"properties"];
 	[records addObject:dic];
 	[TableView reloadData];
-	NSLog(@"Layer list count (records internal): %d", [records count]);
+	NSLog(@"Layer list count (records internal): %lu", [records count]);
 }
 
 -(void)awakeFromNib

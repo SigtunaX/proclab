@@ -111,7 +111,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					869,
+					912,
 					20,
 					48,
 					43,
@@ -186,14 +186,14 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 307791372;
-			PBXWorkspaceStateSaveDate = 307791372;
+			PBXPerProjectTemplateStateSaveDate = 313695086;
+			PBXWorkspaceStateSaveDate = 313695086;
 		};
 		perUserProjectItems = {
-			F108ED031258924A0065271E /* PBXTextBookmark */ = F108ED031258924A0065271E /* PBXTextBookmark */;
 			F108ED0D1258927F0065271E /* PBXTextBookmark */ = F108ED0D1258927F0065271E /* PBXTextBookmark */;
-			F108ED0E1258927F0065271E /* PBXTextBookmark */ = F108ED0E1258927F0065271E /* PBXTextBookmark */;
-			F108ED1F125894F80065271E /* PBXTextBookmark */ = F108ED1F125894F80065271E /* PBXTextBookmark */;
+			F157D47612B2A55A00BF5371 /* PBXTextBookmark */ = F157D47612B2A55A00BF5371 /* PBXTextBookmark */;
+			F157D47712B2A55A00BF5371 /* PBXTextBookmark */ = F157D47712B2A55A00BF5371 /* PBXTextBookmark */;
+			F157D47812B2A55A00BF5371 /* PBXTextBookmark */ = F157D47812B2A55A00BF5371 /* PBXTextBookmark */;
 		};
 		sourceControlManager = F14795680DAC01AD00F81A2B /* Source Control */;
 		userBuildSettings = {
@@ -280,16 +280,6 @@
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
-	F108ED031258924A0065271E /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = F10B068511DE6A2100908D92 /* TGEfxCustomControl.h */;
-		name = "TGEfxCustomControl.h: 15";
-		rLen = 0;
-		rLoc = 404;
-		rType = 0;
-		vrLen = 684;
-		vrLoc = 0;
-	};
 	F108ED0D1258927F0065271E /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = F16394410E3A2E3100A14991 /* textgen.cpp */;
@@ -300,36 +290,19 @@
 		vrLen = 868;
 		vrLoc = 7414;
 	};
-	F108ED0E1258927F0065271E /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = F10B068611DE6A2100908D92 /* TGEfxCustomControl.mm */;
-		rLen = 0;
-		rLoc = 70;
-		rType = 1;
-	};
-	F108ED1F125894F80065271E /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = F10B068611DE6A2100908D92 /* TGEfxCustomControl.mm */;
-		name = "TGEfxCustomControl.mm: 52";
-		rLen = 0;
-		rLoc = 991;
-		rType = 0;
-		vrLen = 1129;
-		vrLoc = 755;
-	};
 	F10B068511DE6A2100908D92 /* TGEfxCustomControl.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1047, 496}}";
-			sepNavSelRange = "{404, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {1090, 510}}";
+			sepNavSelRange = "{545, 18}";
 			sepNavVisRange = "{0, 684}";
 			sepNavWindowFrame = "{{15, 309}, {1245, 714}}";
 		};
 	};
 	F10B068611DE6A2100908D92 /* TGEfxCustomControl.mm */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1047, 1344}}";
-			sepNavSelRange = "{991, 0}";
-			sepNavVisRange = "{755, 1129}";
+			sepNavIntBoundsRect = "{{0, 0}, {1090, 1392}}";
+			sepNavSelRange = "{415, 32}";
+			sepNavVisRange = "{222, 867}";
 			sepNavWindowFrame = "{{38, 288}, {1245, 714}}";
 		};
 	};
@@ -392,7 +365,7 @@
 		ignoreCount = 0;
 		lineNumber = 544;
 		location = ProcLab;
-		modificationTime = 307794524.850874;
+		modificationTime = 307794524.8508739;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -574,6 +547,36 @@
 			sepNavVisRange = "{329, 174}";
 			sepNavWindowFrame = "{{66, 25}, {1008, 848}}";
 		};
+	};
+	F157D47612B2A55A00BF5371 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F10B068511DE6A2100908D92 /* TGEfxCustomControl.h */;
+		name = "TGEfxCustomControl.h: 23";
+		rLen = 18;
+		rLoc = 545;
+		rType = 0;
+		vrLen = 684;
+		vrLoc = 0;
+	};
+	F157D47712B2A55A00BF5371 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F10B068611DE6A2100908D92 /* TGEfxCustomControl.mm */;
+		name = "TGEfxCustomControl.mm: 52";
+		rLen = 0;
+		rLoc = 991;
+		rType = 0;
+		vrLen = 358;
+		vrLoc = 0;
+	};
+	F157D47812B2A55A00BF5371 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = F10B068611DE6A2100908D92 /* TGEfxCustomControl.mm */;
+		name = "TGEfxCustomControl.mm: 38";
+		rLen = 32;
+		rLoc = 415;
+		rType = 0;
+		vrLen = 867;
+		vrLoc = 222;
 	};
 	F158C17911D92DC600F41186 /* textlib.cpp:174 */ = {
 		isa = PBXFileBreakpoint;
@@ -775,7 +778,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		location = libSystem.B.dylib;
-		modificationTime = 307794524.930397;
+		modificationTime = 307794524.9303969;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 		symbolName = malloc_error_break;
@@ -837,7 +840,7 @@
 		ignoreCount = 0;
 		lineNumber = 61;
 		location = ProcLab;
-		modificationTime = 307794524.568228;
+		modificationTime = 307794524.5682281;
 		originalNumberOfMultipleMatches = 0;
 		state = 2;
 	};

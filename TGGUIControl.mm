@@ -48,7 +48,7 @@
 		tmptex->dtex.insert(tmptex->dtex.end(), txtaux);
 		tmptex->dtexsize = tmptex->dtex.size();
 		tmptex->Regenerate();
-		NSLog(@"Re-initializing temporary text #%d [Size: %d]... done!!",i, tmptex->dtex.size());
+		NSLog(@"Re-initializing temporary text #%d [Size: %lu]... done!!",i, tmptex->dtex.size());
 	}
 	[self renderTemp:nil];
 }
@@ -86,19 +86,20 @@
 	[oPanel setAllowsMultipleSelection:NO];		// Allow multiple files selection
 	[oPanel setAlphaValue:0.95];				// Alpha value
 	[oPanel setTitle:@"Select a file to open"];
+    [oPanel setAllowedFileTypes:fileTypes ];
 	
 	// Display the dialog.  If the OK button was pressed,
 	// process the files.
-	if ( [oPanel runModalForDirectory:nil file:nil types:fileTypes] == NSOKButton )
+	if ( [oPanel runModal] == NSOKButton )
 	{
 		// Get an array containing the full filenames of all
 		// files and directories selected.
-		NSArray* files = [oPanel filenames];
+		NSArray* files = [oPanel URLs];
 		
 		// Loop through all the files and process them.
 		for( i = 0; i < [files count]; i++ )
 		{
-			NSString* fileName = [files objectAtIndex:i];
+            NSString *fileName = [[files objectAtIndex:i] path];
 			const char *file = [fileName fileSystemRepresentation];
 			NSLog(@"Open File: %s", file);
 			ZNT fd((char*)file, *tg_final);
@@ -120,20 +121,22 @@
 // save texture file
 - (IBAction) saveZNTfile:(id)sender
 {
+    NSArray *fileTypes = [NSArray arrayWithObjects:@"znt", nil];
+
 	// Create the File Save Panel class.
 	NSSavePanel* sPanel = [NSSavePanel savePanel];
 	//[oPanel setParentWindow:mainWindow];	// Define the parent of our dialog
 	[sPanel setFloatingPanel:NO];				// When we move our parent window, the dialog moves with it
-	[sPanel setRequiredFileType:@"znt"];
+	[sPanel setAllowedFileTypes:fileTypes];
 	[sPanel setCanCreateDirectories:YES];		// Enable the creation of directories in the dialog
 	[sPanel setAlphaValue:0.95];				// Alpha value
 	[sPanel setTitle:@"Choose a filename"];
 	
 	// Display the dialog.  If the OK button was pressed,
 	// process the files.
-	if ( [sPanel runModalForDirectory:nil file:nil] == NSOKButton )
+	if ( [sPanel runModal] == NSOKButton )
 	{
-		NSString* fileName = [sPanel filename];
+		NSString* fileName = [[sPanel URL] path];
 		
 		const char *file = [fileName fileSystemRepresentation];
 		NSLog(@"Save File: %s", file);
@@ -151,20 +154,22 @@
 // Save Final Texture to TGA
 - (IBAction) saveTGAfile:(id)sender
 {
+    NSArray *fileTypes = [NSArray arrayWithObjects:@"tga", nil];
+
 	// Create the File Save Panel class.
 	NSSavePanel* sPanel = [NSSavePanel savePanel];
 	//[oPanel setParentWindow:mainWindow];	// Define the parent of our dialog
 	[sPanel setFloatingPanel:NO];				// When we move our parent window, the dialog moves with it
-	[sPanel setRequiredFileType:@"tga"];
+	[sPanel setAllowedFileTypes:fileTypes];
 	[sPanel setCanCreateDirectories:YES];		// Enable the creation of directories in the dialog
 	[sPanel setAlphaValue:0.95];				// Alpha value
 	[sPanel setTitle:@"Choose a filename"];
 	
 	// Display the dialog.  If the OK button was pressed,
 	// process the files.
-	if ( [sPanel runModalForDirectory:nil file:nil] == NSOKButton )
+	if ( [sPanel runModal] == NSOKButton )
 	{
-		NSString* fileName = [sPanel filename];
+		NSString* fileName = [[sPanel URL] path];
 		
 		const char *file = [fileName fileSystemRepresentation];
 		NSLog(@"Save File: %s", file);
