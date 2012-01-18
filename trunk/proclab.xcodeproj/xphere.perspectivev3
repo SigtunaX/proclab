@@ -294,7 +294,7 @@
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 290}, {267, 764}}</string>
+							<string>{{0, 268}, {267, 786}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -304,7 +304,7 @@
 					<key>GeometryConfiguration</key>
 					<dict>
 						<key>Frame</key>
-						<string>{{0, 0}, {284, 782}}</string>
+						<string>{{0, 0}, {284, 804}}</string>
 						<key>GroupTreeTableConfiguration</key>
 						<array>
 							<string>SCMStatusColumn</string>
@@ -313,7 +313,7 @@
 							<real>245</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>0 55 1397 823 0 0 1440 878 </string>
+						<string>-1440 205 1440 845 -1440 150 1440 900 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -343,12 +343,12 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>F108ED1F125894F80065271E</string>
+										<string>F157D47812B2A55A00BF5371</string>
 										<key>history</key>
 										<array>
-											<string>F108ED031258924A0065271E</string>
 											<string>F108ED0D1258927F0065271E</string>
-											<string>F108ED0E1258927F0065271E</string>
+											<string>F157D47612B2A55A00BF5371</string>
+											<string>F157D47712B2A55A00BF5371</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -362,18 +362,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1108, 527}}</string>
+								<string>{{0, 0}, {1151, 542}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 55 1397 823 0 0 1440 878 </string>
+								<string>-1440 205 1440 845 -1440 150 1440 900 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>527pt</string>
+							<string>542pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
-							<string>250pt</string>
+							<string>257pt</string>
 							<key>Tabs</key>
 							<array>
 								<dict>
@@ -387,7 +387,9 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1108, 223}}</string>
+										<string>{{10, 27}, {1151, 230}}</string>
+										<key>RubberWindowFrame</key>
+										<string>-1440 205 1440 845 -1440 150 1440 900 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -404,8 +406,6 @@
 									<dict>
 										<key>Frame</key>
 										<string>{{10, 27}, {1108, 223}}</string>
-										<key>RubberWindowFrame</key>
-										<string>0 55 1397 823 0 0 1440 878 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXProjectFindModule</string>
@@ -452,7 +452,7 @@
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>1108pt</string>
+					<string>1151pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -471,11 +471,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>F108ECD9125886160065271E</string>
+				<string>F157D47912B2A55A00BF5371</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>F108ECDA125886160065271E</string>
+				<string>F157D47A12B2A55A00BF5371</string>
 				<string>F14795620DAC01AD00F81A2B</string>
-				<string>F108ECDB125886160065271E</string>
+				<string>F157D47B12B2A55A00BF5371</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -665,12 +665,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>F108ECE3125886160065271E</string>
-		<string>F108ECE4125886160065271E</string>
 		<string>/Users/xphere/CODE/proclab/proclab.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>0 55 1397 823 0 0 1440 878 </string>
+	<string>-1440 205 1440 845 -1440 150 1440 900 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
