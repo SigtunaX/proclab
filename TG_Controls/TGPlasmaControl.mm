@@ -18,8 +18,11 @@
 
 - (void)awakeFromNib
 {
-	[TGPlColor1 setColor:[NSColor grayColor]];
-	[TGPlColor1 setColor:[NSColor orangeColor]];
+    NSColor *col1 = [NSColor grayColor];
+    NSColor *col2 = [NSColor orangeColor];
+    
+    [TGPlColor1 setColor:[col1 colorUsingColorSpaceName:NSCalibratedRGBColorSpace]];
+    [TGPlColor2 setColor:[col2 colorUsingColorSpaceName:NSCalibratedRGBColorSpace]];
 }
 
 - (BOOL) isvisibleCtrl

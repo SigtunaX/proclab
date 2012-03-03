@@ -71,10 +71,10 @@ void Text_opp (TEXTURE &Txt, unsigned char opp, unsigned char *data)
 /////////////////////////////////////////////
 void Text_generate_plain (TEXTURE Txt, T_PLAIN plain, unsigned char *data)
 {
-	int cnt;
 	int max_cnt = Txt.w*Txt.h*3;
 	
-	for (cnt=0; cnt<max_cnt; cnt)
+	int cnt = 0;
+    while (cnt<max_cnt)
 	{
 		data[cnt++]=plain.c.R;
 		data[cnt++]=plain.c.G;
@@ -248,7 +248,7 @@ void Text_generate_celular (TEXTURE Txt, T_CELULAR celular, unsigned char *data)
 			if (celular.type==0)
 				distBuffer[x+y*Txt.h] = DistToNearestPoint (Txt.w, Txt.h, x, y, xcoords, ycoords, numPoints);
 			else
-				distBuffer[x+y*Txt.h] = DistToNearestPoint2(Txt.w, Txt.h, x, y, xcoords, ycoords, numPoints) - DistToNearestPoint (Txt.w, Txt.h, x, y, xcoords, ycoords, numPoints);
+				distBuffer[x+y*Txt.h] = DistToNearestPoint2(Txt.w, Txt.h, x, y, xcoords, ycoords, numPoints) - DistToNearestPoint (Txt.w, Txt.h, x, y, xcoords, ycoords, numPoints)*2;
 
 			float distance = distBuffer[x+y*Txt.h];
 			
@@ -541,7 +541,8 @@ void Text_effect_bw (TEXTURE Txt, unsigned char *data)
 	int max_cnt = Txt.w*Txt.h*3;
 	int value;
 
-	for (int cnt=0; cnt<max_cnt; cnt)
+	int cnt = 0;
+    while (cnt<max_cnt)
 	{
 		value = (data[cnt] + data[cnt+1] + data[cnt+2])/3.0f;
 		data[cnt++]=value;
@@ -555,92 +556,7 @@ void Text_effect_bw (TEXTURE Txt, unsigned char *data)
 /////////////////////////////////////////////
 void Text_effect_rect2polar (TEXTURE Txt, unsigned char *data)
 {
-	
-	// COLORIZE
-	// GRADIENT BLUR	
 	int x,y;
-	int r,g,b;
-	int sr,sg,sb;
-	int er,eg,eb;
-	unsigned char *data2;
-
-	sr = 40;
-	sg = 20;
-	sb = 10;
-	er = 10;
-	eg = 205;
-	eb = 200;
-	data2 = (unsigned char*) malloc(Txt.w*Txt.h*3);
-	
-	for(x=0; x<Txt.w; x++)
-	{
-		for(y=0; y<Txt.h; y++)
-		{
-			r = data[ (x)*(Txt.h*3) + ((y)*3)  ];
-			g = data[ (x)*(Txt.h*3) + ((y)*3)+1];
-			b = data[ (x)*(Txt.h*3) + ((y)*3)+2];
-			float lum = ((r+g+b)/3.0f)/255.0f;
-			r = (sr + (er - sr)*lum);
-			g = (sg + (eg - sg)*lum);
-			b = (sb + (eb - sb)*lum);
-			data2[ x*(Txt.h*3) + (y*3)   ] = r;
-			data2[ x*(Txt.h*3) + (y*3)+1 ] = g;
-			data2[ x*(Txt.h*3) + (y*3)+2 ] = b;
-		}
-	}
-	
-	memcpy(data, data2, Txt.w*Txt.h*3);
-	
-	free (data2);
-/*
-	// GRADIENT BLUR	
-	int x,y;
-	float dx, dy;
-	float px, py;
-	int r,g,b;
-	int val;
-	unsigned char *data2;
-	int steps = 50;
-	int n;
-	data2 = (unsigned char*) malloc(Txt.w*Txt.h*3);
-	
-	for(x=0; x<Txt.w; x++)
-	{
-		for(y=0; y<Txt.h; y++)
-		{
-			r=g=b=0;
-			val = data[ x*(Txt.h*3) + (y*3)   ];
-			dx = sinf(2.0f*PIF*val/256.0f);
-			dy = cosf(2.0f*PIF*val/256.0f);
-			px = x;
-			py = y;
-			for (n=0; n<steps;n++)
-			{
-				if (px<0) px=0;
-				if (py<0) py=0;
-				if (px>=Txt.w) px=Txt.w-1;
-				if (py>=Txt.h) py=Txt.h-1;
-				r += data[ ((int)px)*(Txt.h*3) + (((int)py)*3)  ];
-				g += data[ ((int)px)*(Txt.h*3) + (((int)py)*3)+1];
-				b += data[ ((int)px)*(Txt.h*3) + (((int)py)*3)+2];
-				px +=dx;
-				py +=dy;
-			}
-			r = r/steps;
-			g = g/steps;
-			b = b/steps;
-
-			data2[ x*(Txt.h*3) + (y*3)   ] = r;
-			data2[ x*(Txt.h*3) + (y*3)+1 ] = g;
-			data2[ x*(Txt.h*3) + (y*3)+2 ] = b;
-		}
-	}
-	
-	memcpy(data, data2, Txt.w*Txt.h*3);
-	
-	free (data2);
-*/	
-	/*	int x,y;
 	int dx, dy;
 	int newX,newY;
 	unsigned char *data2;
@@ -667,7 +583,6 @@ void Text_effect_rect2polar (TEXTURE Txt, unsigned char *data)
 	memcpy(data, data2, Txt.w*Txt.h*3);
 
 	free (data2);
- */
 }
 
 
@@ -863,4 +778,99 @@ void Text_effect_custom3 (TEXTURE Txt, T_EFF_CUSTOM t_eff_cust, unsigned char *d
 {
 	applyfilter (t_eff_cust.filter, 3, t_eff_cust.cfactor, t_eff_cust.bias, Txt, data);
 }
+
+// COLORIZE
+void Text_effect_color (TEXTURE Txt, T_EFF_COLOR t_eff_color, unsigned char *data)
+{
+	int x,y;
+	int r,g,b;
+	int sr,sg,sb;
+	int er,eg,eb;
+	unsigned char *data2;
+    
+	sr = t_eff_color.c.R;
+	sg = t_eff_color.c.G;
+	sb = t_eff_color.c.B;
+	er = t_eff_color.s.R;
+	eg = t_eff_color.s.G;
+	eb = t_eff_color.s.B;
+	data2 = (unsigned char*) malloc(Txt.w*Txt.h*3);
+	
+	for(x=0; x<Txt.w; x++)
+	{
+		for(y=0; y<Txt.h; y++)
+		{
+			r = data[ (x)*(Txt.h*3) + ((y)*3)  ];
+			g = data[ (x)*(Txt.h*3) + ((y)*3)+1];
+			b = data[ (x)*(Txt.h*3) + ((y)*3)+2];
+			float lum = ((r+g+b)/3.0f)/255.0f;
+			r = (sr + (er - sr)*lum);
+			g = (sg + (eg - sg)*lum);
+			b = (sb + (eb - sb)*lum);
+			data2[ x*(Txt.h*3) + (y*3)   ] = r;
+			data2[ x*(Txt.h*3) + (y*3)+1 ] = g;
+			data2[ x*(Txt.h*3) + (y*3)+2 ] = b;
+		}
+	}
+	
+	memcpy(data, data2, Txt.w*Txt.h*3);
+	
+	free (data2);
+}
+
+
+// GRADIENT BLUR
+void Text_effect_gradblur (TEXTURE Txt, T_EFF_GRADBLUR t_eff_gradblur, unsigned char *data)
+{
+    
+    int steps = t_eff_gradblur.steps;
+    int stepX = t_eff_gradblur.stepX;
+    int stepY = t_eff_gradblur.stepY;
+    
+    int x,y;
+    float dx, dy;
+    float px, py;
+    int r,g,b;
+    int val;
+    unsigned char *data2;
+    int n;
+    data2 = (unsigned char*) malloc(Txt.w*Txt.h*3);
+    
+    for(x=0; x<Txt.w; x++)
+    {
+        for(y=0; y<Txt.h; y++)
+        {
+            r=g=b=0;
+            val = data[ x*(Txt.h*3) + (y*3)   ];
+            dx = sinf(2.0f*PIF*val/(float)stepX);
+            dy = cosf(2.0f*PIF*val/(float)stepY);
+            px = x;
+            py = y;
+            for (n=0; n<steps;n++)
+            {
+                if (px<0) px=0;
+				if (py<0) py=0;
+                if (px>=Txt.w) px=Txt.w-1;
+                if (py>=Txt.h) py=Txt.h-1;
+                r += data[ ((int)px)*(Txt.h*3) + (((int)py)*3)  ];
+                g += data[ ((int)px)*(Txt.h*3) + (((int)py)*3)+1];
+                b += data[ ((int)px)*(Txt.h*3) + (((int)py)*3)+2];
+                px +=dx;
+                py +=dy;
+            }
+            r = r/steps;
+            g = g/steps;
+            b = b/steps;
+            
+            data2[ x*(Txt.h*3) + (y*3)   ] = r;
+            data2[ x*(Txt.h*3) + (y*3)+1 ] = g;
+            data2[ x*(Txt.h*3) + (y*3)+2 ] = b;
+        }
+    }
+    
+    memcpy(data, data2, Txt.w*Txt.h*3);
+    
+    free (data2);
+}
+
 

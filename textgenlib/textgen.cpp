@@ -250,7 +250,7 @@ void COneTextGen::Init()
 	line.s.R=line.s.G=line.s.B=0;
 	line.rot1 = line.rot2 = 0;
 	line.n1 = line.n2 = 1;
-
+    
 	// Font
 	font.p.c.R=font.p.c.G=font.p.c.B=255;
 	font.p.posX = font.p.posY = 0;
@@ -267,7 +267,14 @@ void COneTextGen::Init()
 	eff_cust.filter[0] = eff_cust.filter[1] = eff_cust.filter[2] = eff_cust.filter[3] = eff_cust.filter[4] = eff_cust.filter[5] = eff_cust.filter[6] = eff_cust.filter[7] = eff_cust.filter[8] = 1;
 	eff_cust.bias = 0;
 	eff_cust.cfactor = 9;
-
+    
+    // Colorize
+    eff_color.c.R = eff_color.c.G = eff_color.c.B = 10;
+    eff_color.s.R = eff_color.s.G = eff_color.s.B = 200;
+    
+    // Gradient Blur
+    eff_gradblur.steps = 50;
+    eff_gradblur.stepX = eff_gradblur.stepY = 256;
 
 	// Nom, opacitat i operacio
 #ifdef TEXTURE_EDITOR
@@ -302,6 +309,8 @@ COneTextGen &COneTextGen::operator= (const COneTextGen &ot)
 //		font.text[i] = ot.font.text[i];
 	t_xor = ot.t_xor;
 	eff_cust = ot.eff_cust;
+    eff_color = ot.eff_color;
+    eff_gradblur = ot.eff_gradblur;
 
 
 	return *this;
@@ -355,6 +364,8 @@ void COneTextGen::ApplyEffect (TEXTURE &t, unsigned char* &data)
 		case 112:	Text_effect_mean2		(t, data);	break;
 
 		case 150:	Text_effect_custom3		(t, eff_cust, data); break;
+		case 151:	Text_effect_color		(t, eff_color, data); break;
+        case 152:	Text_effect_gradblur	(t, eff_gradblur, data); break;
 		default:	break;
 	}
 }

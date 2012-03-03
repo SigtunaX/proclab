@@ -9,7 +9,7 @@
 	IBOutlet NSSlider *TGPlseed;
 	IBOutlet NSSlider *TGPlzoom;
     IBOutlet NSPanel *TGPlasmaPanel;
-    IBOutlet id *_parent;
+    IBOutlet NSObject *_parent;
 @public
 	c_gfx	*gfx;
 	T_PLASMA t_data; // Texture data

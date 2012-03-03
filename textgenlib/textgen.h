@@ -28,17 +28,18 @@ public:
 	unsigned char	operation;
 	unsigned char	opacity;
 
-	T_BLOB		blob;
-	T_PLAIN		plain;
-	T_NOISE		noise;
-	T_PERLIN	perlin;
-	T_CELULAR	celular;
-	T_PLASMA	plasma;
-	T_LINE		line;
-	T_FONT		font;
-	T_XOR		t_xor;
-	T_EFF_CUSTOM eff_cust;
-
+	T_BLOB          blob;
+	T_PLAIN         plain;
+	T_NOISE         noise;
+	T_PERLIN        perlin;
+	T_CELULAR       celular;
+	T_PLASMA        plasma;
+	T_LINE          line;
+	T_FONT          font;
+	T_XOR           t_xor;
+	T_EFF_CUSTOM    eff_cust;
+    T_EFF_COLOR     eff_color;
+    T_EFF_GRADBLUR  eff_gradblur;
 };
 
 

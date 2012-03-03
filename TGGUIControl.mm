@@ -302,20 +302,20 @@
 	}
 }
 
-- (void) AddEffect_bw:(id)sender		{[self AddEffect:100];}
-- (void) AddEffect_r2polar:(id)sender	{[self AddEffect:101];}
-- (void) AddEffect_blur:(id)sender		{[self AddEffect:102];}
-- (void) AddEffect_mblur:(id)sender		{[self AddEffect:103];}
-- (void) AddEffect_edges1:(id)sender	{[self AddEffect:104];}
-- (void) AddEffect_edges2:(id)sender	{[self AddEffect:105];}
-- (void) AddEffect_sharpen1:(id)sender	{[self AddEffect:106];}
-- (void) AddEffect_sharpen2:(id)sender	{[self AddEffect:107];}
-- (void) AddEffect_sharpen3:(id)sender	{[self AddEffect:108];}
-- (void) AddEffect_emboss1:(id)sender	{[self AddEffect:109];}
-- (void) AddEffect_emboss2:(id)sender	{[self AddEffect:110];}
-- (void) AddEffect_mean1:(id)sender		{[self AddEffect:111];}
-- (void) AddEffect_mean2:(id)sender		{[self AddEffect:112];}
-- (void) AddEffect_custom3x3:(id)sender
+- (IBAction) AddEffect_bw:(id)sender		{[self AddEffect:100];}
+- (IBAction) AddEffect_r2polar:(id)sender	{[self AddEffect:101];}
+- (IBAction) AddEffect_blur:(id)sender		{[self AddEffect:102];}
+- (IBAction) AddEffect_mblur:(id)sender		{[self AddEffect:103];}
+- (IBAction) AddEffect_edges1:(id)sender	{[self AddEffect:104];}
+- (IBAction) AddEffect_edges2:(id)sender	{[self AddEffect:105];}
+- (IBAction) AddEffect_sharpen1:(id)sender	{[self AddEffect:106];}
+- (IBAction) AddEffect_sharpen2:(id)sender	{[self AddEffect:107];}
+- (IBAction) AddEffect_sharpen3:(id)sender	{[self AddEffect:108];}
+- (IBAction) AddEffect_emboss1:(id)sender	{[self AddEffect:109];}
+- (IBAction) AddEffect_emboss2:(id)sender	{[self AddEffect:110];}
+- (IBAction) AddEffect_mean1:(id)sender		{[self AddEffect:111];}
+- (IBAction) AddEffect_mean2:(id)sender		{[self AddEffect:112];}
+- (IBAction) AddEffect_custom3x3:(id)sender
 {
 	// TODO
 	[self AddEffect:150];
@@ -326,6 +326,30 @@
 			[self showEfxCustom:nil];
 	}
 	NSLog(@"TODO: Add effect custom 3x3");
+}
+- (IBAction) AddEffect_colorize:(id)sender
+{
+    // TODO
+	[self AddEffect:151];
+	int size = tg_final->dtex.size()-1;
+	if (size>0)
+	{
+		if (tg_final->dtex[size].type==151)
+			[self showEfxColorize:nil];
+	}
+	NSLog(@"TODO: Add effect colorize");
+}
+- (IBAction) AddEffect_gradblur:(id)sender
+{
+    // TODO
+	[self AddEffect:152];
+	int size = tg_final->dtex.size()-1;
+	if (size>0)
+	{
+		if (tg_final->dtex[size].type==152)
+			[self showEfxGradBlur:nil];
+	}
+	NSLog(@"TODO: Add effect gradient blur");
 }
 
 
@@ -542,8 +566,6 @@
 }
 
 
-
-
 - (IBAction) showBlob:(id)sender
 {
 	if ([TGBlobCtrl isvisibleCtrl])
@@ -591,7 +613,51 @@
 	//	tg_temptext[0]->dtex[0].eff_cust = t_data;
 }
 
+- (IBAction) showEfxColorize:(id)sender
+{
+	if ([TGEfxColorizeCtrl isvisibleCtrl])
+		[TGEfxColorizeCtrl hideCtrl];
+	else
+	{
+		[self hideAllPanels];
+		[TGEfxColorizeCtrl showCtrl];
+		[TGEfxColorizeCtrl redraw:nil];
+	}
+}
 
+- (void)GetEfxColorize:(T_EFF_COLOR)t_data
+{
+	int size = tg_final->dtex.size()-1;
+	if (size>0)
+	{
+		if (tg_final->dtex[size].type == 151)
+			tg_final->dtex[size].eff_color = t_data;
+		[self renderFinal:nil];
+	}
+}
+
+- (IBAction) showEfxGradBlur:(id)sender
+{
+	if ([TGEfxGradBlurCtrl isvisibleCtrl])
+		[TGEfxGradBlurCtrl hideCtrl];
+	else
+	{
+		[self hideAllPanels];
+		[TGEfxGradBlurCtrl showCtrl];
+		[TGEfxGradBlurCtrl redraw:nil];
+	}
+}
+
+- (void)GetEfxGradBlur:(T_EFF_GRADBLUR)t_data
+{
+	int size = tg_final->dtex.size()-1;
+	if (size>0)
+	{
+		if (tg_final->dtex[size].type == 152)
+			tg_final->dtex[size].eff_gradblur = t_data;
+		[self renderFinal:nil];
+	}
+}
 
 #pragma mark Logs
 - (void) LogFinalTexInfo

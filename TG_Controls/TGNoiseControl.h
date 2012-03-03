@@ -12,7 +12,7 @@
 @interface TGNoiseControl : NSObject {
 	IBOutlet NSPanel *TGNoisePanel;
 	IBOutlet NSColorWell *TGPColor1;
-	IBOutlet id *_parent;
+	IBOutlet NSObject *_parent;
 @public
 	c_gfx	*gfx;
 	T_NOISE t_data; // Texture data

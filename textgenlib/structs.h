@@ -87,3 +87,14 @@ typedef struct tagT_EFF_CUSTOM {
 	unsigned char	cfactor;
 	unsigned char	bias;
 } T_EFF_CUSTOM;
+
+typedef struct tagT_EFF_COLOR {
+	UC_COLOR3		c,s;
+} T_EFF_COLOR;
+
+typedef struct tagT_EFF_GRADBLUR {
+	unsigned char	steps;
+    unsigned short  stepX;
+    unsigned short  stepY;
+} T_EFF_GRADBLUR;
+

@@ -74,16 +74,18 @@ void ZNT::SaveProcess()
 
 		switch (t->dtex[i].type)
 		{
-			case 0: SavePlain(i);		break;
-			case 1: SaveNoise(i);		break;
-			case 2: SavePerlin(i);		break;
-			case 3: SaveCelular(i);		break;
-			case 4: SavePlasma(i);		break;
-			case 5: SaveBlob(i);		break;
-			case 6:	SaveLine(i);		break;
-			case 7: SaveText(i);		break;
-			case 8: SaveXor(i);			break;
-			case 150: SaveEffCustom(i);	break;
+			case 0: SavePlain(i);           break;
+			case 1: SaveNoise(i);           break;
+			case 2: SavePerlin(i);          break;
+			case 3: SaveCelular(i);         break;
+			case 4: SavePlasma(i);          break;
+			case 5: SaveBlob(i);            break;
+			case 6:	SaveLine(i);            break;
+			case 7: SaveText(i);            break;
+			case 8: SaveXor(i);             break;
+			case 150: SaveEffCustom(i);     break;
+            case 151: SaveEffColor(i);      break;
+            case 152: SaveEffGradBlur(i);   break;
 		}
 	}
 }
@@ -206,6 +208,17 @@ void ZNT::SaveEffCustom(int numtex)
 	data_size += sizeof (T_EFF_CUSTOM);
 }
 
+void ZNT::SaveEffColor(int numtex)
+{
+	*((T_EFF_COLOR *)(data+data_size)) = t->dtex[numtex].eff_color;
+	data_size += sizeof (T_EFF_COLOR);
+}
+
+void ZNT::SaveEffGradBlur(int numtex)
+{
+	*((T_EFF_GRADBLUR *)(data+data_size)) = t->dtex[numtex].eff_gradblur;
+	data_size += sizeof (T_EFF_GRADBLUR);
+}
 
 ///////////////////
 // Load texture
@@ -257,18 +270,19 @@ char ZNT::LoadProcess()
 
 			switch (t->dtex[i].type)
 			{
-				case 0: LoadPlain(i);		break;
-				case 1: LoadNoise(i);		break;
-				case 2: LoadPerlin(i);		break;
-				case 3: LoadCelular(i);		break;
-				case 4: LoadPlasma(i);		break;
-				case 5: LoadBlob(i);		break;
-				case 6:	LoadLine(i);		break;
-				case 7: LoadText(i);		break;
-				case 8: LoadXor(i);			break;
-				case 150: LoadEffCustom(i);	break;
-			}
-
+				case 0: LoadPlain(i);           break;
+				case 1: LoadNoise(i);           break;
+				case 2: LoadPerlin(i);          break;
+				case 3: LoadCelular(i);         break;
+				case 4: LoadPlasma(i);          break;
+				case 5: LoadBlob(i);            break;
+				case 6:	LoadLine(i);            break;
+				case 7: LoadText(i);            break;
+				case 8: LoadXor(i);             break;
+				case 150: LoadEffCustom(i);     break;
+				case 151: LoadEffColor(i);      break;
+				case 152: LoadEffGradBlur(i);	break;
+            }
 		}
 	}
 	return msg;
@@ -452,3 +466,16 @@ void ZNT::LoadEffCustom(int numtex)
 	t->dtex[numtex].eff_cust = *((T_EFF_CUSTOM *)(data+data_size));
 	data_size += sizeof (T_EFF_CUSTOM);
 }
+
+void ZNT::LoadEffColor(int numtex)
+{
+	t->dtex[numtex].eff_color = *((T_EFF_COLOR *)(data+data_size));
+	data_size += sizeof (T_EFF_COLOR);
+}
+
+void ZNT::LoadEffGradBlur(int numtex)
+{
+	t->dtex[numtex].eff_gradblur = *((T_EFF_GRADBLUR *)(data+data_size));
+	data_size += sizeof (T_EFF_GRADBLUR);
+}
+

@@ -8,7 +8,7 @@
 	IBOutlet NSSlider *TGBlzoom;
 	IBOutlet NSSlider *TGBlMadValue;
 	IBOutlet NSPanel *TGBlobPanel;
-    IBOutlet id *_parent;
+    IBOutlet NSObject *_parent;
 @public
 	c_gfx	*gfx;
 	T_BLOB t_data; // Texture data

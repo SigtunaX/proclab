@@ -14,6 +14,9 @@
 #import "TG_Controls/TGPlasmaControl.h"
 #import "TG_Controls/TGPerlinControl.h"
 #import "TG_Controls/TGEfxCustomControl.h"
+#import "TG_Controls/TGEfxColorizeControl.h"
+#import "TG_Controls/TGEfxGradBlurControl.h"
+
 #import "c_structs.h"
 #import "textgenlib/main.h"
 #import "controls/tableview.h"
@@ -37,6 +40,8 @@
 	IBOutlet TGPerlinControl *TGPerlinCtrl;
 
 	IBOutlet TGEfxCustomControl *TGEfxCustomCtrl;
+    IBOutlet TGEfxColorizeControl *TGEfxColorizeCtrl;
+    IBOutlet TGEfxGradBlurControl *TGEfxGradBlurCtrl;
 
 	
 	/* Common-C structures */
@@ -69,6 +74,13 @@
 - (IBAction) showEfxCustom:(id)sender;
 - (void)GetEfxCustom:(T_EFF_CUSTOM)t_data;
 
+- (IBAction) showEfxColorize:(id)sender;
+- (void)GetEfxColorize:(T_EFF_COLOR)t_data;
+
+- (IBAction) showEfxGradBlur:(id)sender;
+- (void)GetEfxGradBlur:(T_EFF_GRADBLUR)t_data;
+
+
 
 - (IBAction) openZNTfile:(id)sender;
 - (IBAction) saveZNTfile:(id)sender;
@@ -82,20 +94,23 @@
 - (void) AddLayer:(id)sender;
 
 - (void) AddEffect:(int)type;
-- (void) AddEffect_bw:(id)sender;
-- (void) AddEffect_r2polar:(id)sender;
-- (void) AddEffect_blur:(id)sender;
-- (void) AddEffect_mblur:(id)sender;
-- (void) AddEffect_edges1:(id)sender;
-- (void) AddEffect_edges2:(id)sender;
-- (void) AddEffect_sharpen1:(id)sender;
-- (void) AddEffect_sharpen2:(id)sender;
-- (void) AddEffect_sharpen3:(id)sender;
-- (void) AddEffect_emboss1:(id)sender;
-- (void) AddEffect_emboss2:(id)sender;
-- (void) AddEffect_mean1:(id)sender;
-- (void) AddEffect_mean2:(id)sender;
-- (void) AddEffect_custom3x3:(id)sender;
+- (IBAction) AddEffect_bw:(id)sender;
+- (IBAction) AddEffect_r2polar:(id)sender;
+- (IBAction) AddEffect_blur:(id)sender;
+- (IBAction) AddEffect_mblur:(id)sender;
+- (IBAction) AddEffect_edges1:(id)sender;
+- (IBAction) AddEffect_edges2:(id)sender;
+- (IBAction) AddEffect_sharpen1:(id)sender;
+- (IBAction) AddEffect_sharpen2:(id)sender;
+- (IBAction) AddEffect_sharpen3:(id)sender;
+- (IBAction) AddEffect_emboss1:(id)sender;
+- (IBAction) AddEffect_emboss2:(id)sender;
+- (IBAction) AddEffect_mean1:(id)sender;
+- (IBAction) AddEffect_mean2:(id)sender;
+- (IBAction) AddEffect_custom3x3:(id)sender;
+- (IBAction) AddEffect_colorize:(id)sender;
+- (IBAction) AddEffect_gradblur:(id)sender;
+
 
 - (void) DeleteLayer:(id)sender;
 - (void) UpdateLayerList:(id)sender;

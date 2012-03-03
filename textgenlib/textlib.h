@@ -22,3 +22,5 @@ void Text_effect_emboss2 (TEXTURE Txt, unsigned char *data);
 void Text_effect_mean (TEXTURE Txt, unsigned char *data);
 void Text_effect_mean2 (TEXTURE Txt, unsigned char *data);
 void Text_effect_custom3 (TEXTURE Txt, T_EFF_CUSTOM t_eff_cust, unsigned char *data);
+void Text_effect_color (TEXTURE Txt, T_EFF_COLOR t_eff_color, unsigned char *data);
+void Text_effect_gradblur (TEXTURE Txt, T_EFF_GRADBLUR t_eff_gradblur, unsigned char *data);

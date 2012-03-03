@@ -1,6 +1,6 @@
 Descripción del archivo ZNT (Zona Neutra Texture)
 ------------------------------------------------------------
-v. del documento:	1.3
+v. del documento:	1.3.1
 v. del formato ZNT:	16
 
 By Xphere, creador del formato ZNT
@@ -160,13 +160,30 @@ Si la textura es de tipo 8: Xor (3 bytes)
 1 ubyte - Valor B (de 0 a 255)
 
 
-Si el efecto es de tipo Efecto (100-200): B/W (0 bytes)
+Si el efecto es de tipo Efecto (100-149) (0 bytes)
 ---------------------------------------------
-No ocupa nada
+No ocupa nada.
+	Type 100:	Text_effect_bw
+	Type 101:	Text_effect_rect2polar
+	Type 102:	Text_effect_blur
+	Type 103:	Text_effect_motionblur
+	Type 104:	Text_effect_edges1
+	Type 105:	Text_effect_edges2
+	Type 106:	Text_effect_sharpen1
+	Type 107:	Text_effect_sharpen2
+	Type 108:	Text_effect_sharpen3
+	Type 109:	Text_effect_emboss1
+	Type 110:	Text_effect_emboss2
+	Type 111:	Text_effect_mean
+	Type 112:	Text_effect_mean2
 
-
-Si el efecto es de tipo Efecto (100-200): Custom 3x3 (11 bytes)
+Si el efecto es de tipo Efecto 150: Custom 3x3 (11 bytes)
 ---------------------------------------------
 9 bytes - Valor de la matriz del filtro 3x3 (de -127 a 127)
 1 ubyte - Valor del 'cfactor' (de 1 a 255)
 1 ubyte - Valor del 'bias' (de 0 a 255)
+
+Si el efecto es de tipo Efecto 151: Colorize (6 bytes)
+---------------------------------------------
+3 bytes - Color 1 - Valor R, G, B (de 0 a 255)
+3 bytes - Color 2 - Valor R, G, B (de 0 a 255)

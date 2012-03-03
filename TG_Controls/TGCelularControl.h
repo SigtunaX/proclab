@@ -6,7 +6,7 @@
     IBOutlet NSColorWell *TGCColor2;
 	IBOutlet NSComboBox *TGCType;
     IBOutlet NSPanel *TGCelularPanel;
-    IBOutlet id *_parent;
+    IBOutlet NSObject *_parent;
 @public
 	c_gfx	*gfx;
 	T_CELULAR t_data; // Texture data
