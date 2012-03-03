@@ -44,7 +44,9 @@ private:
 	void SaveText(int numtex);
 	void SaveXor(int numtex);
 	void SaveEffCustom(int numtex);
-
+	void SaveEffColor(int numtex);
+	void SaveEffGradBlur(int numtex);
+    
 #endif
 
 	char LoadProcess();
@@ -69,7 +71,9 @@ private:
 	void LoadText(int numtex);
 	void LoadXor(int numtex);
 	void LoadEffCustom(int numtex);
-
+	void LoadEffColor(int numtex);
+	void LoadEffGradBlur(int numtex);
+    
 #ifdef TEXTURE_EDITOR
 protected:
 	FILE *fd;

@@ -12,7 +12,7 @@
 @interface TGPlainControl : NSObject {
 	IBOutlet NSPanel *TGPlainPanel;
 	IBOutlet NSColorWell *TGPColor1;
-	IBOutlet id *_parent;
+	IBOutlet NSObject *_parent;
 @public
 	c_gfx	*gfx;
 	T_PLAIN t_data; // Texture data

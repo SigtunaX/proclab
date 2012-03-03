@@ -25,9 +25,11 @@
 		F163944D0E3A2E3100A14991 /* textlib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16394450E3A2E3100A14991 /* textlib.cpp */; };
 		F163944E0E3A2E3100A14991 /* znl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16394470E3A2E3100A14991 /* znl.cpp */; };
 		F163944F0E3A2E3100A14991 /* znt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16394490E3A2E3100A14991 /* znt.cpp */; };
+		F1671BF51502C98F00E5FF71 /* TGEfxGradBlurControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F1671BF41502C98F00E5FF71 /* TGEfxGradBlurControl.mm */; };
 		F1758B54107D3C10005597B5 /* TGPlasmaControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F1758B52107D3C10005597B5 /* TGPlasmaControl.mm */; };
 		F176AE730DAC0A5A00AF7EA6 /* MainGUIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F176AE720DAC0A5A00AF7EA6 /* MainGUIControl.m */; };
 		F193310B0DBA56930013DD80 /* TGGUIControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F193310A0DBA56930013DD80 /* TGGUIControl.mm */; };
+		F1A85FA314FACEBE00E7B4CD /* TGEfxColorizeControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F1A85FA214FACEBE00E7B4CD /* TGEfxColorizeControl.mm */; };
 		F1F4B7CD0FF297AA00AE8E86 /* tableview.mm in Sources */ = {isa = PBXBuildFile; fileRef = F1F4B7CC0FF297AA00AE8E86 /* tableview.mm */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +73,8 @@
 		F16394480E3A2E3100A14991 /* znl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = znl.h; sourceTree = "<group>"; };
 		F16394490E3A2E3100A14991 /* znt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = znt.cpp; sourceTree = "<group>"; };
 		F163944A0E3A2E3100A14991 /* znt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = znt.h; sourceTree = "<group>"; };
+		F1671BF31502C98F00E5FF71 /* TGEfxGradBlurControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGEfxGradBlurControl.h; path = TG_Controls/TGEfxGradBlurControl.h; sourceTree = "<group>"; };
+		F1671BF41502C98F00E5FF71 /* TGEfxGradBlurControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TGEfxGradBlurControl.mm; path = TG_Controls/TGEfxGradBlurControl.mm; sourceTree = "<group>"; };
 		F1758B52107D3C10005597B5 /* TGPlasmaControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TGPlasmaControl.mm; path = TG_Controls/TGPlasmaControl.mm; sourceTree = "<group>"; };
 		F1758B53107D3C10005597B5 /* TGPlasmaControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGPlasmaControl.h; path = TG_Controls/TGPlasmaControl.h; sourceTree = "<group>"; };
 		F176AE710DAC0A5A00AF7EA6 /* MainGUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainGUIControl.h; sourceTree = "<group>"; };
@@ -78,6 +82,8 @@
 		F19331090DBA56930013DD80 /* TGGUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGGUIControl.h; sourceTree = "<group>"; };
 		F193310A0DBA56930013DD80 /* TGGUIControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TGGUIControl.mm; sourceTree = "<group>"; };
 		F19DD29B0DFAD4F300F032B9 /* c_structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c_structs.h; sourceTree = "<group>"; };
+		F1A85FA114FACEBE00E7B4CD /* TGEfxColorizeControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TGEfxColorizeControl.h; path = TG_Controls/TGEfxColorizeControl.h; sourceTree = "<group>"; };
+		F1A85FA214FACEBE00E7B4CD /* TGEfxColorizeControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TGEfxColorizeControl.mm; path = TG_Controls/TGEfxColorizeControl.mm; sourceTree = "<group>"; };
 		F1E5D51D0FE05FA4008A2F22 /* proclab_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = proclab_Prefix.pch; sourceTree = "<group>"; };
 		F1F4B7CB0FF297AA00AE8E86 /* tableview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tableview.h; path = controls/tableview.h; sourceTree = "<group>"; };
 		F1F4B7CC0FF297AA00AE8E86 /* tableview.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = tableview.mm; path = controls/tableview.mm; sourceTree = "<group>"; };
@@ -191,6 +197,10 @@
 		F153CC2B0DBBE5A7002DBFAC /* TG_Controls */ = {
 			isa = PBXGroup;
 			children = (
+				F1671BF31502C98F00E5FF71 /* TGEfxGradBlurControl.h */,
+				F1671BF41502C98F00E5FF71 /* TGEfxGradBlurControl.mm */,
+				F1A85FA114FACEBE00E7B4CD /* TGEfxColorizeControl.h */,
+				F1A85FA214FACEBE00E7B4CD /* TGEfxColorizeControl.mm */,
 				F10B068511DE6A2100908D92 /* TGEfxCustomControl.h */,
 				F10B068611DE6A2100908D92 /* TGEfxCustomControl.mm */,
 				F100BC6A1175208300BAD050 /* TGPerlinControl.h */,
@@ -265,6 +275,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "proclab" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -320,6 +333,8 @@
 				F100BC6C1175208300BAD050 /* TGPerlinControl.mm in Sources */,
 				F11784D511CC26810096172F /* tga.cpp in Sources */,
 				F10B068711DE6A2100908D92 /* TGEfxCustomControl.mm in Sources */,
+				F1A85FA314FACEBE00E7B4CD /* TGEfxColorizeControl.mm in Sources */,
+				F1671BF51502C98F00E5FF71 /* TGEfxGradBlurControl.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,7 +367,6 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -392,8 +406,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -405,8 +418,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
